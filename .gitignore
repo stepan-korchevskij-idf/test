@@ -25,3 +25,6 @@ hs_err_pid*
 # Gradle
 .gradle
 /gradle/wrapper
+/src/test/resources/configurationEnvironment.yaml
+/gradlew
+/gradlew.bat
