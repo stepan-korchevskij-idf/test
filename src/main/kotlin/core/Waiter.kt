@@ -8,10 +8,10 @@ import org.openqa.selenium.support.ui.WebDriverWait
 import java.util.concurrent.TimeUnit
 
 object Waiter {
-  private const val implicitlyTimeout: Long = 10
+  private const val defaultImplicitlyTimeout: Long = 10
 
   fun waitInvisibility(driver: WebDriver, locator: By, timeout: Long) {
-    driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS)
+    changeImplicitlyTimeout(driver, 0)
     WebDriverWait(driver, timeout)
       .until() {
         try {
@@ -22,6 +22,14 @@ object Waiter {
           false
         }
       }
+    setDefaultImplicitlyTimeout(driver)
+  }
+
+  private fun changeImplicitlyTimeout(driver: WebDriver, implicitlyTimeout: Long) {
     driver.manage().timeouts().implicitlyWait(implicitlyTimeout, TimeUnit.SECONDS)
+  }
+
+  private fun setDefaultImplicitlyTimeout(driver: WebDriver) {
+    driver.manage().timeouts().implicitlyWait(defaultImplicitlyTimeout, TimeUnit.SECONDS)
   }
 }

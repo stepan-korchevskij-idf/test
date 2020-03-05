@@ -6,15 +6,17 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
+import java.util.*
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 abstract class BaseTest {
   protected lateinit var driver: WebDriver
-  protected val configs = loadProperty("configurationEnvironment.yaml")
+  protected lateinit var configs: Properties
   private val systemProperties: MutableList<Pair<String, String>> = mutableListOf()
 
   @BeforeAll
   fun beforeAll() {
+    configs = loadProperty("configurationEnvironment.yaml")
     val host = configs.getProperty("host")
     val login = configs.getProperty("user")
     val password = configs.getProperty("pass")
@@ -31,6 +33,7 @@ abstract class BaseTest {
 
   @AfterAll
   fun afterAll() {
+    configs.clear()
     driver.close()
     systemProperties.forEach { pair -> System.clearProperty(pair.first) }
   }

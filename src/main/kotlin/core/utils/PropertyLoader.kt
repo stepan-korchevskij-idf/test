@@ -6,7 +6,7 @@ import java.util.*
 internal fun loadProperty(nameResource: String): Properties {
   val resourceAsStream = Thread.currentThread().contextClassLoader.getResourceAsStream(nameResource)
     ?: throw FileNotFoundException("File '$nameResource' not found.")
-  val result = Properties()
-  result.load(resourceAsStream)
-  return result
+  return Properties().also {
+    it.load(resourceAsStream)
+  }
 }
