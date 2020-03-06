@@ -9,7 +9,7 @@ class LoginTests : BaseTest() {
   @Test
   fun checkLogin() {
     val user = User(login = "ta-eqqzghjsuq-0267867945@mail.ru", password = "11111111")
-    val privateAreaStartEndpoint = configs.getProperty("privateAreaStartEndpoint")
+    val privateAreaStartEndpoint = environmentConfiguration.privateAreaStartEndpoint
     driver.get(driver.currentUrl + privateAreaStartEndpoint)
     val loginPage = LoginPage(driver)
     loginPage.checkOpened()
