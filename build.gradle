@@ -10,14 +10,14 @@ repositories {
 }
 
 dependencies {
-  implementation(group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59')
-  implementation(group: 'org.yaml', name: 'snakeyaml', version: '1.26')
+  implementation("org.seleniumhq.selenium:selenium-java:3.141.59")
+  implementation("org.yaml:snakeyaml:1.26")
   implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-  implementation("org.junit.jupiter:junit-jupiter:5.6.0")
-  implementation(group: 'com.codeborne', name: 'selenide', version: '5.8.0')
-  implementation(group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.10.3')
-  implementation(group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.10.3')
+  implementation("com.codeborne:selenide:5.8.0")
+  implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.10.3")
+  implementation("com.fasterxml.jackson.core:jackson-databind:2.10.3")
   implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.3")
+  testImplementation("org.junit.jupiter:junit-jupiter:5.6.0")
 }
 
 tasks.test {

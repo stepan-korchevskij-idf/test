@@ -10,6 +10,6 @@ object SystemPropertiesConfigurator {
 
   internal fun clearAll() {
     properties.forEach { (key, _) -> System.clearProperty(key) }
-    properties = HashMap<String, String>()
+    properties = HashMap()
   }
 }
