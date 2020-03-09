@@ -1,6 +1,7 @@
 package core.driver
 
 import config.DriverConfiguration
+import core.utils.SystemPropertiesConfigurator
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
 import org.openqa.selenium.chrome.ChromeOptions
@@ -15,7 +16,10 @@ class ChromeDriverManager : DriverManager() {
     driver = if (DriverConfiguration.isRemote) {
       RemoteWebDriver(URL(DriverConfiguration.hubUrl), options)
     } else {
-      System.setProperty("webdriver.chrome.driver", "C:\\Users\\stepan.korchevskij\\browserDriwers\\chromedriver.exe");
+      SystemPropertiesConfigurator.add(
+        "webdriver.chrome.driver",
+        "C:\\Users\\stepan.korchevskij\\browserDriwers\\chromedriver.exe"
+      )
       ChromeDriver(options)
     }
     driverThreadLocal.set(driver)

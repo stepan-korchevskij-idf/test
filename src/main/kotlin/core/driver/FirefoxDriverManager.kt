@@ -1,6 +1,7 @@
 package core.driver
 
 import config.DriverConfiguration
+import core.utils.SystemPropertiesConfigurator
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.firefox.FirefoxOptions
@@ -15,7 +16,10 @@ class FirefoxDriverManager : DriverManager() {
     driver = if (DriverConfiguration.isRemote) {
       RemoteWebDriver(URL(DriverConfiguration.hubUrl), options)
     } else {
-      System.setProperty("webdriver.gecko.driver", "C:\\Users\\stepan.korchevskij\\browserDriwers\\geckodriver.exe");
+      SystemPropertiesConfigurator.add(
+        "webdriver.gecko.driver",
+        "C:\\Users\\stepan.korchevskij\\browserDriwers\\geckodriver.exe"
+      )
       FirefoxDriver(options)
     }
     driverThreadLocal.set(driver)

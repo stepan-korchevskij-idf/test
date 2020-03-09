@@ -2,9 +2,10 @@ package core
 
 import config.DriverConfiguration
 import config.EnvironmentConfiguration
-import config.YAMLParser
 import core.driver.DriverManager
 import core.driver.DriverManagerFactory
+import core.utils.SystemPropertiesConfigurator
+import core.utils.YAMLParser
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
@@ -29,6 +30,7 @@ abstract class BaseTest {
 
   @AfterAll
   fun afterAll() {
+    SystemPropertiesConfigurator.clearAll()
     driverManager.quitDriver()
   }
 }
