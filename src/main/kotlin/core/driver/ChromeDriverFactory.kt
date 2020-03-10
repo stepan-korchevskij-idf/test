@@ -1,30 +1,34 @@
 package core.driver
 
 import config.driver.DriverConfiguration
-import core.utils.SystemPropertiesConfigurator
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.chrome.ChromeDriver
-import org.openqa.selenium.chrome.ChromeOptions
+import org.openqa.selenium.remote.DesiredCapabilities
 import org.openqa.selenium.remote.RemoteWebDriver
 import java.net.URL
 
 class ChromeDriverFactory(driverConfiguration: DriverConfiguration) : DefaultDriverFactory(driverConfiguration) {
-  override fun createDriver() {
-    driverThreadLocal.set(initDriver(createCapability()))
+
+  private val systemPropertyForInitDriver by lazy {
+    Pair(
+      "webdriver.chrome.driver",
+      "src/test/resources/drivers/chromedriver.exe"
+    )
   }
 
-  private fun createCapability(): ChromeOptions {
-    return ChromeOptions().apply {
-      addArguments("--window-size=${driverConfiguration.windowHeight},${driverConfiguration.windowWidth}")
-    }
+  override fun createCapability(generalDesiredCapabilities: DesiredCapabilities): DesiredCapabilities {
+    val chromeCapabilities = DesiredCapabilities.chrome()
+    //add here exclusive capabilities
+    chromeCapabilities.merge(generalDesiredCapabilities)
+    return chromeCapabilities
   }
 
-  private fun initDriver(options: ChromeOptions): WebDriver {
-    return when (DriverExecutionType.values().first { it.name == driverConfiguration.driverExecutionType }) {
-      DriverExecutionType.REMOTE -> RemoteWebDriver(URL(driverConfiguration.hubUrl), options)
+  override fun initDriver(desiredCapabilities: DesiredCapabilities): WebDriver {
+    return when (driverConfiguration.driverExecutionType) {
+      DriverExecutionType.REMOTE -> RemoteWebDriver(URL(driverConfiguration.hubUrl), desiredCapabilities)
       DriverExecutionType.LOCAL -> {
-        SystemPropertiesConfigurator.add("webdriver.chrome.driver", "chromedriver.exe")
-        ChromeDriver(options)
+        setSystemPropertyForInitLocalWebDriver(systemPropertyForInitDriver.first, systemPropertyForInitDriver.second)
+        ChromeDriver(desiredCapabilities)
       }
     }
   }

@@ -1,6 +1,6 @@
 package core.driver
 
-enum class DriverType {
+enum class BrowserType {
   CHROME,
   FIREFOX;
 }

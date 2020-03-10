@@ -5,12 +5,10 @@ import org.openqa.selenium.WebDriver
 
 object NavigateOperations {
   internal fun authorize(environmentConfiguration: EnvironmentConfiguration, driver: WebDriver) {
-    val baseUrl =
-      "https://${environmentConfiguration.user}:${environmentConfiguration.pass}@${environmentConfiguration.host}"
-    driver.get(baseUrl)
+    driver.get(environmentConfiguration.getBaseUrl())
   }
 
-  internal fun openPrivateAreaOperation(environmentConfiguration: EnvironmentConfiguration, driver: WebDriver) {
-    driver.get("https://${environmentConfiguration.host}${environmentConfiguration.privateAreaStartEndpoint}")
+  internal fun goToEndPoint(endpoint: String?, environmentConfiguration: EnvironmentConfiguration, driver: WebDriver) {
+    driver.get(environmentConfiguration.getApplicationUrl(endpoint!!))
   }
 }

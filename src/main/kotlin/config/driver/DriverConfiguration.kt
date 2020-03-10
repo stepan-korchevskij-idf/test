@@ -1,8 +1,13 @@
 package config.driver
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import core.driver.BrowserType
+import core.driver.DriverExecutionType
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class DriverConfiguration(
-  var driverType: String,
-  var driverExecutionType: String,
+  var browserType: BrowserType,
+  var driverExecutionType: DriverExecutionType,
   var hubUrl: String,
   var implicitlyDefaultTimeoutSeconds: Long,
   var pageLoadedDefaultTimeoutSeconds: Long,

@@ -1,9 +1,13 @@
 package config.driver
 
+import core.driver.BrowserType
+import core.driver.DriverExecutionType
 import core.utils.getSelectedClassObjectFromResourceFile
+import java.nio.file.NoSuchFileException
 
 object DriverConfigProvider {
-  private const val driverTypeSystemProperty: String = "test.driver.type"
+  private const val nameFile = "driverConfiguration.yaml"
+  private const val browserTypeSystemProperty: String = "test.driver.browser.type"
   private const val driverExecutionSystemProperty: String = "test.driver.execution"
   private const val hubUrlSystemPropertySystemProperty: String = "test.driver.url.hub"
   private const val implicitlyDefaultTimeoutSecondsSystemProperty: String = "test.driver.wait.implicitly"
@@ -14,17 +18,18 @@ object DriverConfigProvider {
 
   internal fun getConfiguration(): DriverConfiguration {
     return readConfigurationFromFile().apply {
-      driverType = getSystemProp(driverTypeSystemProperty) ?: driverType
-      driverExecutionType = getSystemProp(driverExecutionSystemProperty) ?: driverExecutionType
-      hubUrl = getSystemProp(hubUrlSystemPropertySystemProperty) ?: hubUrl
-      implicitlyDefaultTimeoutSeconds =
-        getSystemProp(implicitlyDefaultTimeoutSecondsSystemProperty)?.toLong() ?: implicitlyDefaultTimeoutSeconds
-      pageLoadedDefaultTimeoutSeconds =
-        getSystemProp(pageLoadedDefaultTimeoutSecondsSystemProperty)?.toLong() ?: pageLoadedDefaultTimeoutSeconds
-      scriptDefaultTimeoutSeconds =
-        getSystemProp(scriptDefaultTimeoutSecondsSystemProperty)?.toLong() ?: scriptDefaultTimeoutSeconds
-      windowHeight = getSystemProp(windowWidthSystemProperty)?.toInt() ?: windowHeight
-      windowWidth = getSystemProp(windowHeightSystemProperty)?.toInt() ?: windowWidth
+      getSystemProp(browserTypeSystemProperty)?.apply { browserType = BrowserType.valueOf(this.toUpperCase()) }
+      getSystemProp(driverExecutionSystemProperty)?.apply {
+        driverExecutionType = DriverExecutionType.valueOf(this.toUpperCase())
+      }
+      getSystemProp(hubUrlSystemPropertySystemProperty)?.apply { hubUrl = this }
+      getSystemProp(implicitlyDefaultTimeoutSecondsSystemProperty)?.toLong()
+        ?.apply { implicitlyDefaultTimeoutSeconds = this }
+      getSystemProp(pageLoadedDefaultTimeoutSecondsSystemProperty)?.toLong()
+        ?.apply { pageLoadedDefaultTimeoutSeconds = this }
+      getSystemProp(scriptDefaultTimeoutSecondsSystemProperty)?.toLong()?.apply { scriptDefaultTimeoutSeconds = this }
+      getSystemProp(windowWidthSystemProperty)?.toInt()?.apply { windowHeight = this }
+      getSystemProp(windowHeightSystemProperty)?.toInt()?.apply { windowWidth = this }
     }
   }
 
@@ -33,6 +38,7 @@ object DriverConfigProvider {
   }
 
   private fun readConfigurationFromFile(): DriverConfiguration {
-    return getSelectedClassObjectFromResourceFile("driverConfiguration.yaml", DriverConfiguration::class.java)!!
+    return getSelectedClassObjectFromResourceFile(nameFile, DriverConfiguration::class.java)
+      ?: throw NoSuchFileException(nameFile)
   }
 }

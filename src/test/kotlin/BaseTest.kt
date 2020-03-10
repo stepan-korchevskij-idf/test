@@ -5,7 +5,6 @@ import config.environment.EnvironmentConfiguration
 import core.driver.DefaultDriverFactory
 import core.driver.DriverFactoryManager
 import core.utils.NavigateOperations
-import core.utils.SystemPropertiesConfigurator
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
@@ -29,7 +28,6 @@ abstract class BaseTest {
 
   @AfterAll
   fun afterAll() {
-    SystemPropertiesConfigurator.clearAll()
     driver.quit()
   }
 }
