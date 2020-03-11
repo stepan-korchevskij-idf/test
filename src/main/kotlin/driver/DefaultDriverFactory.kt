@@ -9,24 +9,18 @@ import org.openqa.selenium.remote.DesiredCapabilities
 import java.util.concurrent.TimeUnit
 
 abstract class DefaultDriverFactory(open var driverConfiguration: DriverConfiguration) : DriverFactory {
-  private var driverThreadLocal: ThreadLocal<WebDriver> = ThreadLocal()
 
   protected abstract fun createDriver(capabilities: Capabilities): WebDriver
   protected abstract fun createCapability(): Capabilities
 
   override fun getDriver(): WebDriver {
-    return driverThreadLocal.get() ?: initDriver()
+    val createdDriver = createDriver(createCapability())
+    configureDriver(createdDriver)
+    return createdDriver
   }
 
   protected fun initLocalDriverLocation(key: String, value: String) {
     System.setProperty(key, value)
-  }
-
-  private fun initDriver(): WebDriver {
-    val createdDriver = createDriver(createCapability())
-    configureDriver(createdDriver)
-    driverThreadLocal.set(createdDriver)
-    return createdDriver
   }
 
   protected fun getGeneralDesiredCapabilities(): DesiredCapabilities {

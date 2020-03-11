@@ -9,11 +9,11 @@ class LoginTests : BaseTest() {
   @Test
   fun checkLogin() {
     val user = User(login = "ta-eqqzghjsuq-0267867945@mail.ru", password = "11111111")
-    NavigateOperations.goToEndPoint(environmentConfiguration.privateAreaStartEndpoint, environmentConfiguration, driver)
-    LoginPage(driver).apply {
+    NavigateOperations.goToEndPoint(environmentConfiguration.privateAreaStartEndpoint, environmentConfiguration)
+    LoginPage().apply {
       checkOpened()
       login(user)
     }
-    LoanDetailsPage(driver).checkOpened()
+    LoanDetailsPage().checkOpened()
   }
 }

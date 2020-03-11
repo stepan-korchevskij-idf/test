@@ -1,11 +1,12 @@
 package pages
 
+import controls.ButtonElement
+import controls.InputElement
 import data.User
 import org.openqa.selenium.By
-import org.openqa.selenium.WebDriver
 import waiters.Waiter
 
-class LoginPage(driver: WebDriver) : BasePage(driver) {
+class LoginPage() : BasePage() {
   override var identifierPage: By = By.cssSelector(".login-view.container")
   override var namePage = "Login"
 
@@ -19,18 +20,18 @@ class LoginPage(driver: WebDriver) : BasePage(driver) {
       typePassword(password)
     }
     clickLoginButton()
-    Waiter.waitInvisibility(driver, CommonLocators.spinner, 10)
+    Waiter.waitInvisibilityElement(CommonLocators.spinner, 10)
   }
 
   private fun typeLogin(login: String) {
-    driver.findElement(userLogin).sendKeys(login)
+    InputElement.type(userLogin, login)
   }
 
   private fun typePassword(password: String) {
-    driver.findElement(userPassword).sendKeys(password)
+    InputElement.type(userPassword, password)
   }
 
   private fun clickLoginButton() {
-    driver.findElement(loginButton).click()
+    ButtonElement.click(loginButton)
   }
 }

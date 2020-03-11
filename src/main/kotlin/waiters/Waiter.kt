@@ -1,5 +1,6 @@
 package waiters
 
+import CustomDriver
 import org.openqa.selenium.By
 import org.openqa.selenium.NoSuchElementException
 import org.openqa.selenium.StaleElementReferenceException
@@ -10,9 +11,9 @@ import java.util.concurrent.TimeUnit
 object Waiter {
   private const val DEFAULT_IMPLICITLY_TIMEOUT: Long = 10
 
-  fun waitInvisibility(driver: WebDriver, locator: By, timeout: Long) {
-    changeImplicitlyTimeout(driver, 0)
-    WebDriverWait(driver, timeout)
+  fun waitInvisibilityElement(locator: By, timeout: Long) {
+    CustomDriver.Timeouts.implicitlyWait(0)
+    WebDriverWait(CustomDriver.instance, timeout)
       .until() {
         try {
           !it.findElement(locator).isDisplayed
@@ -22,14 +23,6 @@ object Waiter {
           false
         }
       }
-    setDefaultImplicitlyTimeout(driver)
-  }
-
-  private fun changeImplicitlyTimeout(driver: WebDriver, implicitlyTimeout: Long) {
-    driver.manage().timeouts().implicitlyWait(implicitlyTimeout, TimeUnit.SECONDS)
-  }
-
-  private fun setDefaultImplicitlyTimeout(driver: WebDriver) {
-    driver.manage().timeouts().implicitlyWait(DEFAULT_IMPLICITLY_TIMEOUT, TimeUnit.SECONDS)
+    CustomDriver.Timeouts.setDefaultImplicitlyWait()
   }
 }
