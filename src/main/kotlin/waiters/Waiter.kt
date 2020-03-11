@@ -1,4 +1,4 @@
-package core
+package waiters
 
 import org.openqa.selenium.By
 import org.openqa.selenium.NoSuchElementException
@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait
 import java.util.concurrent.TimeUnit
 
 object Waiter {
-  private const val defaultImplicitlyTimeout: Long = 10
+  private const val DEFAULT_IMPLICITLY_TIMEOUT: Long = 10
 
   fun waitInvisibility(driver: WebDriver, locator: By, timeout: Long) {
     changeImplicitlyTimeout(driver, 0)
@@ -30,6 +30,6 @@ object Waiter {
   }
 
   private fun setDefaultImplicitlyTimeout(driver: WebDriver) {
-    driver.manage().timeouts().implicitlyWait(defaultImplicitlyTimeout, TimeUnit.SECONDS)
+    driver.manage().timeouts().implicitlyWait(DEFAULT_IMPLICITLY_TIMEOUT, TimeUnit.SECONDS)
   }
 }

@@ -1,8 +1,8 @@
-import core.utils.NavigateOperations
 import data.User
 import org.junit.jupiter.api.Test
 import pages.LoanDetailsPage
 import pages.LoginPage
+import utils.NavigateOperations
 
 class LoginTests : BaseTest() {
 

@@ -1,35 +1,36 @@
 package config.driver
 
-import core.driver.BrowserType
-import core.driver.DriverExecutionType
-import core.utils.getSelectedClassObjectFromResourceFile
+import driver.BrowserType
+import driver.DriverExecutionType
+import utils.getSelectedClassObjectFromResourceFile
 import java.nio.file.NoSuchFileException
 
 object DriverConfigProvider {
-  private const val nameFile = "driverConfiguration.yaml"
-  private const val browserTypeSystemProperty: String = "test.driver.browser.type"
-  private const val driverExecutionSystemProperty: String = "test.driver.execution"
-  private const val hubUrlSystemPropertySystemProperty: String = "test.driver.url.hub"
-  private const val implicitlyDefaultTimeoutSecondsSystemProperty: String = "test.driver.wait.implicitly"
-  private const val pageLoadedDefaultTimeoutSecondsSystemProperty: String = "test.driver.wait.page"
-  private const val scriptDefaultTimeoutSecondsSystemProperty: String = "test.driver.wait.script"
-  private const val windowWidthSystemProperty: String = "test.driver.window.width"
-  private const val windowHeightSystemProperty: String = "test.driver.window.height"
+  private const val NAME_FILE = "driverConfiguration.yaml"
+  private const val BROWSER_TYPE_SYSTEM_PROPERTY = "test.driver.browser.type"
+  private const val DRIVER_EXECUTION_SYSTEM_PROPERTY = "test.driver.execution"
+  private const val HUB_URL_SYSTEM_PROPERTY = "test.driver.url.hub"
+  private const val IMPLICITLY_DEFAULT_TIMEOUT_SECONDS_SYSTEM_PROPERTY = "test.driver.wait.implicitly"
+  private const val PAGE_LOADED_DEFAULT_TIMEOUT_SECONDS_SYSTEM_PROPERTY = "test.driver.wait.page"
+  private const val SCRIPT_DEFAULT_TIMEOUT_SECONDS_SYSTEM_PROPERTY = "test.driver.wait.script"
+  private const val WINDOW_WIDTH_SYSTEM_PROPERTY = "test.driver.window.width"
+  private const val WINDOW_HEIGHT_SYSTEM_PROPERTY = "test.driver.window.height"
 
-  internal fun getConfiguration(): DriverConfiguration {
+  fun getConfiguration(): DriverConfiguration {
     return readConfigurationFromFile().apply {
-      getSystemProp(browserTypeSystemProperty)?.apply { browserType = BrowserType.valueOf(this.toUpperCase()) }
-      getSystemProp(driverExecutionSystemProperty)?.apply {
+      getSystemProp(BROWSER_TYPE_SYSTEM_PROPERTY)?.apply { browserType = BrowserType.valueOf(this.toUpperCase()) }
+      getSystemProp(DRIVER_EXECUTION_SYSTEM_PROPERTY)?.apply {
         driverExecutionType = DriverExecutionType.valueOf(this.toUpperCase())
       }
-      getSystemProp(hubUrlSystemPropertySystemProperty)?.apply { hubUrl = this }
-      getSystemProp(implicitlyDefaultTimeoutSecondsSystemProperty)?.toLong()
-        ?.apply { implicitlyDefaultTimeoutSeconds = this }
-      getSystemProp(pageLoadedDefaultTimeoutSecondsSystemProperty)?.toLong()
-        ?.apply { pageLoadedDefaultTimeoutSeconds = this }
-      getSystemProp(scriptDefaultTimeoutSecondsSystemProperty)?.toLong()?.apply { scriptDefaultTimeoutSeconds = this }
-      getSystemProp(windowWidthSystemProperty)?.toInt()?.apply { windowHeight = this }
-      getSystemProp(windowHeightSystemProperty)?.toInt()?.apply { windowWidth = this }
+      getSystemProp(HUB_URL_SYSTEM_PROPERTY)?.apply { hubUrl = this }
+      getSystemProp(IMPLICITLY_DEFAULT_TIMEOUT_SECONDS_SYSTEM_PROPERTY)
+        ?.apply { implicitlyDefaultTimeoutSeconds = this.toLong() }
+      getSystemProp(PAGE_LOADED_DEFAULT_TIMEOUT_SECONDS_SYSTEM_PROPERTY)
+        ?.apply { pageLoadedDefaultTimeoutSeconds = this.toLong() }
+      getSystemProp(SCRIPT_DEFAULT_TIMEOUT_SECONDS_SYSTEM_PROPERTY)
+        ?.apply { scriptDefaultTimeoutSeconds = this.toLong() }
+      getSystemProp(WINDOW_WIDTH_SYSTEM_PROPERTY)?.apply { windowHeight = this.toInt() }
+      getSystemProp(WINDOW_HEIGHT_SYSTEM_PROPERTY)?.apply { windowWidth = this.toInt() }
     }
   }
 
@@ -38,7 +39,7 @@ object DriverConfigProvider {
   }
 
   private fun readConfigurationFromFile(): DriverConfiguration {
-    return getSelectedClassObjectFromResourceFile(nameFile, DriverConfiguration::class.java)
-      ?: throw NoSuchFileException(nameFile)
+    return getSelectedClassObjectFromResourceFile(NAME_FILE, DriverConfiguration::class.java)
+      ?: throw NoSuchFileException(NAME_FILE)
   }
 }

@@ -1,13 +1,13 @@
 package pages
 
-import core.Waiter
 import data.User
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
+import waiters.Waiter
 
 class LoginPage(driver: WebDriver) : BasePage(driver) {
   override var identifierPage: By = By.cssSelector(".login-view.container")
-  override var namePage: String = "Login"
+  override var namePage = "Login"
 
   private val userLogin: By = By.id("login-view--email")
   private val userPassword: By = By.id("password")

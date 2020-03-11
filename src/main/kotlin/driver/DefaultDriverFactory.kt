@@ -1,35 +1,40 @@
-package core.driver
+package driver
 
 import config.driver.DriverConfiguration
+import org.openqa.selenium.Capabilities
 import org.openqa.selenium.Dimension
 import org.openqa.selenium.Platform
 import org.openqa.selenium.WebDriver
+import org.openqa.selenium.remote.CapabilityType
 import org.openqa.selenium.remote.DesiredCapabilities
 import java.util.concurrent.TimeUnit
 
 abstract class DefaultDriverFactory(open var driverConfiguration: DriverConfiguration) : DriverFactory {
   private var driverThreadLocal: ThreadLocal<WebDriver> = ThreadLocal()
 
-  protected abstract fun initDriver(desiredCapabilities: DesiredCapabilities): WebDriver
-  protected abstract fun createCapability(generalDesiredCapabilities: DesiredCapabilities): DesiredCapabilities
+  protected abstract fun createDriver(capabilities: Capabilities): WebDriver
+  protected abstract fun createCapability(): Capabilities
 
   override fun getDriver(): WebDriver {
-    if (driverThreadLocal.get() == null) {
-      val createdDriver = initDriver(createCapability(getGeneralDesiredCapabilities()))
-      configureDriver(createdDriver)
-      driverThreadLocal.set(createdDriver)
-    }
-    return driverThreadLocal.get()
+    return driverThreadLocal.get() ?: initDriver()
   }
 
-  private fun getGeneralDesiredCapabilities(): DesiredCapabilities {
+  protected fun initLocalDriverLocation(key: String, value: String) {
+    System.setProperty(key, value)
+  }
+
+  private fun initDriver(): WebDriver {
+    val createdDriver = createDriver(createCapability())
+    configureDriver(createdDriver)
+    driverThreadLocal.set(createdDriver)
+    return createdDriver
+  }
+
+  protected fun getGeneralDesiredCapabilities(): DesiredCapabilities {
     val desiredCapabilities = DesiredCapabilities()
     desiredCapabilities.platform = Platform.WINDOWS
+    desiredCapabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true)
     return desiredCapabilities
-  }
-
-  protected fun setSystemPropertyForInitLocalWebDriver(key: String, value: String) {
-    System.setProperty(key, value)
   }
 
   private fun configureDriver(driver: WebDriver) {

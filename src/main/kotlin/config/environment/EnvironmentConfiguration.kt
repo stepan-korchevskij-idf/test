@@ -4,10 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 class EnvironmentConfiguration {
-  private fun createMessageException(nameProperty: String): String {
-    return "Property '$nameProperty' must be initialized."
-  }
-
   var user: String? = null
     get() = field ?: throw IllegalArgumentException(createMessageException("user"))
   var pass: String? = null
@@ -16,6 +12,8 @@ class EnvironmentConfiguration {
     get() = field ?: throw IllegalArgumentException(createMessageException("host"))
   var privateAreaStartEndpoint: String? = null
     get() = field ?: throw IllegalArgumentException(createMessageException("privateAreaStartEndpoint"))
+
+  private fun createMessageException(nameProperty: String) = "Property '$nameProperty' must be initialized"
 
   fun getBaseUrl(): String {
     return "https://$user:$pass@$host"
