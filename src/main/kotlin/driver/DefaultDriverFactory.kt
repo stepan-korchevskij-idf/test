@@ -3,7 +3,6 @@ package driver
 import config.driver.DriverConfiguration
 import org.openqa.selenium.Capabilities
 import org.openqa.selenium.Dimension
-import org.openqa.selenium.Platform
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.remote.CapabilityType
 import org.openqa.selenium.remote.DesiredCapabilities
@@ -32,7 +31,6 @@ abstract class DefaultDriverFactory(open var driverConfiguration: DriverConfigur
 
   protected fun getGeneralDesiredCapabilities(): DesiredCapabilities {
     val desiredCapabilities = DesiredCapabilities()
-    desiredCapabilities.platform = Platform.WINDOWS
     desiredCapabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true)
     return desiredCapabilities
   }
