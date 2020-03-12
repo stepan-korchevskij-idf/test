@@ -20,7 +20,7 @@ class LoginPage() : BasePage() {
       typePassword(password)
     }
     clickLoginButton()
-    Waiter.waitInvisibilityElement(CommonLocators.spinner, 10)
+    Waiter.waitInvisibilityElement(CommonLocators.spinner)
   }
 
   private fun typeLogin(login: String) {

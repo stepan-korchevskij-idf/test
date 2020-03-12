@@ -4,16 +4,14 @@ import CustomDriver
 import org.openqa.selenium.By
 import org.openqa.selenium.NoSuchElementException
 import org.openqa.selenium.StaleElementReferenceException
-import org.openqa.selenium.WebDriver
 import org.openqa.selenium.support.ui.WebDriverWait
-import java.util.concurrent.TimeUnit
 
 object Waiter {
-  private const val DEFAULT_IMPLICITLY_TIMEOUT: Long = 10
+  private const val WAIT_INVISIBILITY_ELEMENT: Long = 10
 
-  fun waitInvisibilityElement(locator: By, timeout: Long) {
+  fun waitInvisibilityElement(locator: By) {
     CustomDriver.Timeouts.implicitlyWait(0)
-    WebDriverWait(CustomDriver.instance, timeout)
+    WebDriverWait(CustomDriver.getDriver(), WAIT_INVISIBILITY_ELEMENT)
       .until() {
         try {
           !it.findElement(locator).isDisplayed
