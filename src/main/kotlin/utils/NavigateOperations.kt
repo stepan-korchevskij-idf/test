@@ -1,14 +1,14 @@
 package utils
 
+import CustomDriver
 import config.environment.EnvironmentConfiguration
-import org.openqa.selenium.WebDriver
 
 object NavigateOperations {
-  fun authorize(environmentConfiguration: EnvironmentConfiguration, driver: WebDriver) {
-    driver.get(environmentConfiguration.getBaseUrl())
+  fun authorize(environmentConfiguration: EnvironmentConfiguration) {
+    CustomDriver.get(environmentConfiguration.getBaseUrl())
   }
 
-  fun goToEndPoint(endpoint: String?, environmentConfiguration: EnvironmentConfiguration, driver: WebDriver) {
-    driver.get(environmentConfiguration.getApplicationUrl(endpoint!!))
+  fun goToEndPoint(endpoint: String?, environmentConfiguration: EnvironmentConfiguration) {
+    CustomDriver.get(environmentConfiguration.getApplicationUrl(endpoint!!))
   }
 }
