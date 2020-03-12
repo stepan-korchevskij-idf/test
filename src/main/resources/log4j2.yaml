@@ -1,16 +1,15 @@
 Configuration:
   status: info
-  name: YAMLConfigTest
-  thresholdFilter:
-    level: info
-  appenders:
+
+  Appenders:
     Console:
-      name: Console_Appender
+      name: CONSOLE
       target: SYSTEM_OUT
       PatternLayout:
-        pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+        Pattern: "%highlight{%d{yyyy:MM:dd HH:mm:ss.SSS}[%-5level][%-10t]%-10.20logger{1.} : %msg}%xEx%n"
+
   Loggers:
     Root:
       level: info
       AppenderRef:
-        ref: Console_Appender
+        - ref: CONSOLE

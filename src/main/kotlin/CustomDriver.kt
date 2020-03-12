@@ -1,6 +1,5 @@
 import config.driver.DriverConfigProvider
 import driver.DriverFactoryManager
-import org.apache.logging.log4j.Level
 import org.apache.logging.log4j.LogManager
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
@@ -17,20 +16,21 @@ object CustomDriver {
   }
 
   private fun createInstanceDriver(): WebDriver {
-    logger.log(Level.INFO, "Creating driver instance")
+    logger.info("Creating driver instance")
     val driver = DriverFactoryManager.getDriverFactory(driverConfiguration).getDriver()
     driverThreadLocal.set(driver)
     return driver
   }
 
   fun get(url: String) {
-    logger.log(Level.INFO, "Navigating to url - '$url'")
+    logger.info("Navigating to url - '$url'")
     getDriver().get(url)
   }
 
   fun quit() {
-    logger.log(Level.INFO, "Quits this driver")
+    logger.info("Quit driver")
     getDriver().quit()
+    logger.info("Quited driver")
     driverThreadLocal.remove()
   }
 

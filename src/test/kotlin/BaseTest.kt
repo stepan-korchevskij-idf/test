@@ -1,6 +1,6 @@
 import config.environment.EnvironmentConfigProvider
 import config.environment.EnvironmentConfiguration
-import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
 import utils.NavigateOperations
@@ -15,8 +15,8 @@ abstract class BaseTest {
     NavigateOperations.authorize(environmentConfiguration)
   }
 
-  @AfterAll
-  fun afterAll() {
+  @AfterEach
+  fun quitDriver() {
     CustomDriver.quit()
   }
 }

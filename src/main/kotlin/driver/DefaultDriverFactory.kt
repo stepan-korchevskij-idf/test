@@ -10,13 +10,13 @@ import java.util.concurrent.TimeUnit
 
 abstract class DefaultDriverFactory(open var driverConfiguration: DriverConfiguration) : DriverFactory {
 
-  protected abstract fun createDriver(capabilities: Capabilities): WebDriver
-  protected abstract fun createCapability(): Capabilities
+  protected abstract fun createDriver(capabilities: Capabilities = createCapability()): WebDriver
+  abstract fun createCapability(): Capabilities
 
   override fun getDriver(): WebDriver {
-    val createdDriver = createDriver(createCapability())
-    configureDriver(createdDriver)
-    return createdDriver
+    return createDriver().apply {
+      configureDriver(this)
+    }
   }
 
   protected fun initLocalDriverLocation(key: String, value: String) {
