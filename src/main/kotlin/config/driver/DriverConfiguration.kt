@@ -2,7 +2,7 @@ package config.driver
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import driver.BrowserType
-import driver.DriverExecutionType
+import driver.selenium.DriverExecutionType
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class DriverConfiguration(

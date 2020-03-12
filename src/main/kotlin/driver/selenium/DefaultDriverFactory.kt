@@ -1,4 +1,4 @@
-package driver
+package driver.selenium
 
 import config.driver.DriverConfiguration
 import org.openqa.selenium.Capabilities
@@ -8,7 +8,8 @@ import org.openqa.selenium.remote.CapabilityType
 import org.openqa.selenium.remote.DesiredCapabilities
 import java.util.concurrent.TimeUnit
 
-abstract class DefaultDriverFactory(open var driverConfiguration: DriverConfiguration) : DriverFactory {
+abstract class DefaultDriverFactory(open var driverConfiguration: DriverConfiguration) :
+  DriverFactory {
 
   protected abstract fun createDriver(capabilities: Capabilities = createCapability()): WebDriver
   abstract fun createCapability(): Capabilities

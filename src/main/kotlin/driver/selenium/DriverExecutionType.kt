@@ -1,4 +1,4 @@
-package driver
+package driver.selenium
 
 enum class DriverExecutionType {
   REMOTE,

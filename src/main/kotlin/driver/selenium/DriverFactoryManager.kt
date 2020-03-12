@@ -1,6 +1,7 @@
-package driver
+package driver.selenium
 
 import config.driver.DriverConfiguration
+import driver.BrowserType
 
 object DriverFactoryManager {
   fun getDriverFactory(driverConfiguration: DriverConfiguration): DefaultDriverFactory {

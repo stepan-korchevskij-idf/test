@@ -1,4 +1,4 @@
-package driver
+package driver.selenium
 
 import config.driver.DriverConfiguration
 import org.openqa.selenium.Capabilities

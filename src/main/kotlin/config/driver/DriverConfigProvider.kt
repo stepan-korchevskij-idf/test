@@ -1,7 +1,7 @@
 package config.driver
 
 import driver.BrowserType
-import driver.DriverExecutionType
+import driver.selenium.DriverExecutionType
 import utils.getSelectedClassObjectFromResourceFile
 import java.nio.file.NoSuchFileException
 

@@ -1,14 +1,14 @@
 package utils
 
-import CustomDriver
+import SelenideCustomDriver
 import config.environment.EnvironmentConfiguration
 
 object NavigateOperations {
   fun authorize(environmentConfiguration: EnvironmentConfiguration) {
-    CustomDriver.get(environmentConfiguration.getBaseUrl())
+    SelenideCustomDriver.get(environmentConfiguration.getBaseUrl())
   }
 
   fun goToEndPoint(endpoint: String?, environmentConfiguration: EnvironmentConfiguration) {
-    CustomDriver.get(environmentConfiguration.getApplicationUrl(endpoint!!))
+    SelenideCustomDriver.get(environmentConfiguration.getApplicationUrl(endpoint!!))
   }
 }

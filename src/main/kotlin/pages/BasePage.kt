@@ -1,6 +1,7 @@
 package pages
 
-import CustomDriver
+import com.codeborne.selenide.Condition
+import com.codeborne.selenide.Selenide.`$`
 import org.openqa.selenium.By
 
 abstract class BasePage() {
@@ -8,7 +9,6 @@ abstract class BasePage() {
   abstract var namePage: String
 
   fun checkOpened() {
-    val foundedIdentifiers = CustomDriver.findElements(identifierPage)
-    assert(foundedIdentifiers.size > 0 && foundedIdentifiers[0].isDisplayed) { "$namePage page does not opened." }
+    `$`(identifierPage).shouldBe(Condition.visible)
   }
 }
