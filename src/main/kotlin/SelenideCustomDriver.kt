@@ -8,7 +8,7 @@ object SelenideCustomDriver {
   private val driverConfiguration = DriverConfigProvider.getConfiguration()
   private val logger = LogManager.getLogger(this.javaClass.name)
 
-  private fun getDriver(): WebDriver {
+  fun getDriver(): WebDriver {
     if (!WebDriverRunner.hasWebDriverStarted()) {
       createDriver()
     }
@@ -20,7 +20,7 @@ object SelenideCustomDriver {
     SelenideDriverFactoryManager.getDriverFactory(driverConfiguration).getDriver()
   }
 
-  fun get(url: String) {
+  fun open(url: String) {
     logger.info("Navigating to url - '$url'")
     getDriver().get(url)
   }

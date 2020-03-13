@@ -23,6 +23,7 @@ abstract class SelenideDefaultDriverFactory(open var driverConfiguration: Driver
   }
 
   protected fun getGeneralDesiredCapabilities(): DesiredCapabilities {
+    Configuration.browser = driverConfiguration.browserType.name.toLowerCase()
     val desiredCapabilities = DesiredCapabilities()
     desiredCapabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true)
     return desiredCapabilities

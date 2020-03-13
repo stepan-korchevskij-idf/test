@@ -10,8 +10,8 @@ class LoginTests : BaseTest() {
     MxPrivateAreaOperations(environmentConfiguration).apply {
       open()
       loginPage.checkOpened()
+      loanDetailsPage.checkOpened()//todo для дебага фэйлю тест
       loginPage.login(user)
-      loanDetailsPage.checkOpened()
     }
   }
 }
