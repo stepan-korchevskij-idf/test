@@ -1,15 +1,15 @@
 package services
 
-import config.environment.EnvironmentConfiguration
+import com.codeborne.selenide.Selenide
+import config.environment.EnvironmentConfigurationHolder
 import pages.LoanDetailsPage
 import pages.LoginPage
-import utils.NavigateOperations
 
-class MxPrivateAreaOperations(private val environmentConfiguration: EnvironmentConfiguration) {
+class MxPrivateAreaOperations() {
   val loginPage by lazy { LoginPage() }
   val loanDetailsPage by lazy { LoanDetailsPage() }
 
-  fun open() {
-    NavigateOperations.goToEndPoint(environmentConfiguration.privateAreaStartEndpoint, environmentConfiguration)
+  fun openStartPage() {
+    Selenide.open(EnvironmentConfigurationHolder.environmentConfiguration.privateAreaStartEndpoint)
   }
 }

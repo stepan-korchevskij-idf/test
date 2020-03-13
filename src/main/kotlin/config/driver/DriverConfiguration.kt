@@ -8,10 +8,14 @@ import driver.selenium.DriverExecutionType
 data class DriverConfiguration(
   var browserType: BrowserType,
   var driverExecutionType: DriverExecutionType,
+  var chromeVersion: String,
+  var firefoxVersion: String,
   var hubUrl: String,
   var implicitlyDefaultTimeoutSeconds: Long,
   var pageLoadedDefaultTimeoutSeconds: Long,
   var scriptDefaultTimeoutSeconds: Long,
+  var timeoutSeconds: Long,
   var windowHeight: Int,
-  var windowWidth: Int
+  var windowWidth: Int,
+  var headless: Boolean
 )

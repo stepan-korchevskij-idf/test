@@ -2,28 +2,22 @@ package driver
 
 import com.codeborne.selenide.Configuration
 import config.driver.DriverConfiguration
-import driver.selenium.DriverFactory
-import org.openqa.selenium.WebDriver
+import config.environment.EnvironmentConfigurationHolder
 import org.openqa.selenium.remote.CapabilityType
 import org.openqa.selenium.remote.DesiredCapabilities
 
 abstract class SelenideDefaultDriverFactory(open var driverConfiguration: DriverConfiguration) :
-  DriverFactory {
+  SelenideDriverFactory {
 
-  protected abstract fun createDriver(desiredCapabilities: DesiredCapabilities = createCapability()): WebDriver
+  protected abstract fun createDriver(desiredCapabilities: DesiredCapabilities = createCapability())
   abstract fun createCapability(): DesiredCapabilities
 
-  override fun getDriver(): WebDriver {
+  override fun getDriver() {
     configureDriver()
-    return createDriver()
-  }
-
-  protected fun initLocalDriverLocation(key: String, value: String) {
-    System.setProperty(key, value)
+    createDriver()
   }
 
   protected fun getGeneralDesiredCapabilities(): DesiredCapabilities {
-    Configuration.browser = driverConfiguration.browserType.name.toLowerCase()
     val desiredCapabilities = DesiredCapabilities()
     desiredCapabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true)
     return desiredCapabilities
@@ -31,6 +25,9 @@ abstract class SelenideDefaultDriverFactory(open var driverConfiguration: Driver
 
   private fun configureDriver() {
     Configuration.browserSize = "${driverConfiguration.windowWidth}x${driverConfiguration.windowHeight}"
-    Configuration.timeout = 6000//todo из пропертей
+    Configuration.timeout = driverConfiguration.timeoutSeconds * 1000
+    Configuration.browser = driverConfiguration.browserType.name.toLowerCase()
+    Configuration.headless = driverConfiguration.headless
+    Configuration.baseUrl = EnvironmentConfigurationHolder.environmentConfiguration.getBaseUrl()
   }
 }
