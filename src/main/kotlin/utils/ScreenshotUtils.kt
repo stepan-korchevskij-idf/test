@@ -1,15 +1,24 @@
 package utils
 
 import SelenideCustomDriver
+import org.apache.logging.log4j.LogManager
 import ru.yandex.qatools.ashot.AShot
 import ru.yandex.qatools.ashot.shooting.ShootingStrategies
 import java.io.File
 import javax.imageio.ImageIO
 
-//todo как узнать папку конкретного теста
-fun takeScreenshot(fileName: String) {
-  val pathname = System.getProperty("user.dir") + "\\build\\reports\\tests\\$fileName.png"
-  val screenshot = AShot().shootingStrategy(ShootingStrategies.viewportPasting(1000))
-    .takeScreenshot(SelenideCustomDriver.getDriver())
-  ImageIO.write(screenshot.image, "PNG", File(pathname))
+object ScreenshotUtils {
+  private val logger = LogManager.getLogger()
+
+  fun takeScreenshot(fileName: String) {
+    val pathname = generatePathname(fileName)
+    logger.info("Attaching screenshot - '${pathname}'")
+    val screenshot = AShot().shootingStrategy(ShootingStrategies.viewportPasting(100))
+      .takeScreenshot(SelenideCustomDriver.getDriver())
+    ImageIO.write(screenshot.image, "PNG", File(pathname))
+  }
+
+  private fun generatePathname(fileName: String): String {
+    return System.getProperty("user.dir") + "\\build\\reports\\tests\\${fileName}_${System.nanoTime()}.png"
+  }
 }
