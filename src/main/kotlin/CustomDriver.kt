@@ -1,5 +1,5 @@
 import config.driver.DriverConfigProvider
-import driver.DriverFactoryManager
+import driver.selenium.DriverFactoryManager
 import org.apache.logging.log4j.LogManager
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
@@ -11,7 +11,7 @@ object CustomDriver {
   private val driverThreadLocal = ThreadLocal<WebDriver>()
   private val logger = LogManager.getLogger(this.javaClass.name)
 
-  fun getDriver(): WebDriver {
+  private fun getDriver(): WebDriver {
     return driverThreadLocal.get() ?: createInstanceDriver()
   }
 

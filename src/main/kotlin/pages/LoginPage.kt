@@ -1,10 +1,11 @@
 package pages
 
+import com.codeborne.selenide.Condition
+import com.codeborne.selenide.Selenide.`$`
 import controls.ButtonElement
 import controls.InputElement
 import data.User
 import org.openqa.selenium.By
-import waiters.Waiter
 
 class LoginPage() : BasePage() {
   override var identifierPage: By = By.cssSelector(".login-view.container")
@@ -20,7 +21,7 @@ class LoginPage() : BasePage() {
       typePassword(password)
     }
     clickLoginButton()
-    Waiter.waitInvisibilityElement(CommonLocators.spinner)
+    `$`(CommonLocators.spinner).shouldNotBe(Condition.visible)
   }
 
   private fun typeLogin(login: String) {

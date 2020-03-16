@@ -15,11 +15,11 @@ class EnvironmentConfiguration {
 
   private fun createMessageException(nameProperty: String) = "Property '$nameProperty' must be initialized"
 
-  fun getBaseUrl(): String {
+  fun getBaseUrlForAuthorisation(): String {
     return "https://$user:$pass@$host"
   }
 
-  fun getApplicationUrl(urlEndpoint: String): String {
-    return "https://$host/$urlEndpoint"
+  fun getBaseUrl(): String {
+    return "https://$host"
   }
 }

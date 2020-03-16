@@ -1,6 +1,6 @@
 package controls
 
-import CustomDriver
+import com.codeborne.selenide.Selenide.`$`
 import org.apache.logging.log4j.LogManager
 import org.openqa.selenium.By
 
@@ -9,6 +9,6 @@ object InputElement {
 
   fun type(locator: By, text: String) {
     logger.info("Typing text - '$text' in input - '$locator'")
-    CustomDriver.findElement(locator).sendKeys(text)
+    `$`(locator).sendKeys(text)
   }
 }
