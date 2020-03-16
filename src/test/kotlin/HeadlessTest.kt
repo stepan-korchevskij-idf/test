@@ -1,11 +1,23 @@
 import data.User
+import listeners.TestListener
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import services.MxPrivateAreaOperations
 
-class HeadlessTest : BaseTest() {
+@ExtendWith(TestListener::class)
+class HeadlessTest {
 
-  init {
+  @BeforeAll
+  fun configureTest() {
     System.setProperty("test.driver.headless", "true")
+    SelenideCustomDriver.configureDriver()
+  }
+
+  @BeforeEach
+  fun authorize() {
+    SelenideCustomDriver.authorize()
   }
 
   @Test

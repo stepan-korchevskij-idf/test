@@ -11,10 +11,14 @@ object ScreenshotUtils {
   private val logger = LogManager.getLogger()
 
   fun takeScreenshot(fileName: String) {
-    val pathname = System.getProperty("user.dir") + "\\build\\reports\\tests\\$fileName.png"
-    logger.info("Attaching screenshot - '$fileName'")
-    val screenshot = AShot().shootingStrategy(ShootingStrategies.viewportPasting(500))
+    val pathname = generatePathname(fileName)
+    logger.info("Attaching screenshot - '${pathname}'")
+    val screenshot = AShot().shootingStrategy(ShootingStrategies.viewportPasting(100))
       .takeScreenshot(SelenideCustomDriver.getDriver())
     ImageIO.write(screenshot.image, "PNG", File(pathname))
+  }
+
+  private fun generatePathname(fileName: String): String {
+    return System.getProperty("user.dir") + "\\build\\reports\\tests\\${fileName}_${System.nanoTime()}.png"
   }
 }
