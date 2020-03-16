@@ -1,4 +1,6 @@
+import listeners.TestListener
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
 import services.MxPrivateAreaOperations
 
 /**
@@ -7,6 +9,7 @@ import services.MxPrivateAreaOperations
 class FailedTest : BaseTest() {
 
   @Test
+  @ExtendWith(TestListener::class)
   fun failedTest() {
     MxPrivateAreaOperations().apply {
       openStartPage()
