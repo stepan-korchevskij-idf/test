@@ -11,7 +11,7 @@ class EnvironmentConfigurationTest {
       EnvironmentConfiguration().privateAreaStartEndpoint
     }
 
-    val messageExceptionExpected = "Property 'privateAreaStartEndpoint' must be initialized."
+    val messageExceptionExpected = "Property 'privateAreaStartEndpoint' must be initialized"
     Assertions.assertEquals(messageExceptionExpected, exception.message)
   }
 }

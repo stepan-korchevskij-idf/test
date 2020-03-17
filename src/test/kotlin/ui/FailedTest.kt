@@ -1,3 +1,5 @@
+package ui
+
 import org.junit.jupiter.api.Test
 import services.MxPrivateAreaOperations
 
