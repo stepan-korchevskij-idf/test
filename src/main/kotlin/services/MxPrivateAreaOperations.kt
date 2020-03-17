@@ -10,6 +10,6 @@ class MxPrivateAreaOperations() {
   val loanDetailsPage by lazy { LoanDetailsPage() }
 
   fun openStartPage() {
-    Selenide.open(EnvironmentConfigurationHolder.environmentConfiguration.privateAreaStartEndpoint)
+    Selenide.open(EnvironmentConfigurationHolder.configuration.privateAreaStartEndpoint)
   }
 }

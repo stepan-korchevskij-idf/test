@@ -25,6 +25,6 @@ object SelenideCustomDriver {
   }
 
   fun authorize() {
-    open(EnvironmentConfigurationHolder.environmentConfiguration.getBaseUrlForAuthorisation())
+    open(EnvironmentConfigurationHolder.configuration.getBaseUrlForAuthorisation())
   }
 }

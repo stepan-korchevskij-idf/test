@@ -17,6 +17,8 @@ val jackson: String by project
 val log4j: String by project
 val ashot: String by project
 val junit: String by project
+val wiremock: String by project
+val okhttp: String by project
 
 dependencies {
   implementation(kotlin("stdlib-jdk8"))
@@ -29,7 +31,9 @@ dependencies {
   implementation("org.apache.logging.log4j:log4j-core:$log4j")
   implementation("org.apache.logging.log4j:log4j-api:$log4j")
   implementation("ru.yandex.qatools.ashot:ashot:$ashot")
+  implementation("com.squareup.okhttp3:okhttp:$okhttp")
   testImplementation("org.junit.jupiter:junit-jupiter:$junit")
+  testImplementation("com.github.tomakehurst:wiremock-jre8:$wiremock")
 }
 
 tasks.named<Test>("test") {

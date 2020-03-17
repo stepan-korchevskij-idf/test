@@ -28,6 +28,6 @@ abstract class SelenideDefaultDriverFactory(open var driverConfiguration: Driver
     Configuration.timeout = driverConfiguration.timeoutSeconds * 1000
     Configuration.browser = driverConfiguration.browserType.name.toLowerCase()
     Configuration.headless = driverConfiguration.headless
-    Configuration.baseUrl = EnvironmentConfigurationHolder.environmentConfiguration.getBaseUrl()
+    Configuration.baseUrl = EnvironmentConfigurationHolder.configuration.getBaseUrl()
   }
 }
