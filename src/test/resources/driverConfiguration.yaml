@@ -1,0 +1,14 @@
+driverExecutionType: LOCAL
+browserType: CHROME
+hubUrl: http://localhost:4444/wd/hub
+windowWidth: 1920
+windowHeight: 1080
+headless: false
+chromeVersion: 80
+firefoxVersion: 74
+#selenide
+timeoutSeconds: 10
+#selenium
+implicitlyDefaultTimeoutSeconds: 10
+pageLoadedDefaultTimeoutSeconds: 60
+scriptDefaultTimeoutSeconds: 180
