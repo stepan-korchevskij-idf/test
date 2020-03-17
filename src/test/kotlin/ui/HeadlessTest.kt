@@ -1,12 +1,10 @@
+package ui
+
 import data.User
 import org.junit.jupiter.api.Test
 import services.MxPrivateAreaOperations
 
-class RemoteRunningTest : BaseTest() {
-
-  init {
-    System.setProperty("test.driver.execution", "remote")
-  }
+class HeadlessTest : BaseTest() {
 
   @Test
   fun checkLogin() {
