@@ -1,6 +1,6 @@
 package api
 
-import api.generator.RequestBodyGenerator
+import api.generator.CrmBodyGenerator
 import config.environment.EnvironmentConfiguration
 import config.environment.EnvironmentConfigurationHolder
 import okhttp3.*
@@ -22,7 +22,7 @@ class LoginCrmTest {
   }
 
   @Test
-  fun whenGetRequest_thenCorrect() {
+  fun whenGetLoginPage_thenStatus200() {
     val request: Request = Request.Builder()
       .url(environmentConfiguration.getBaseUrl() + environmentConfiguration.privateAreaStartEndpoint)
       .build()
@@ -32,7 +32,7 @@ class LoginCrmTest {
   }
 
   @Test
-  fun whenGetLoginPage_thenCorrect() {
+  fun whenGetCrmLoginPage_thenStatus200() {
     val request: Request = Request.Builder()
       .url(environmentConfiguration.getBaseUrl() + environmentConfiguration.crmStartEndpoint)
       .addHeader(
@@ -49,7 +49,7 @@ class LoginCrmTest {
   }
 
   @Test
-  fun whenGetLoginPageWithErrorCredentials_then401() {
+  fun whenGetCrmLoginPageWithErrorCredentials_thenStatus401() {
     val username = "incorrectUsername"
     val password = "incorrectPassword"
     val request: Request = Request.Builder()
@@ -62,11 +62,11 @@ class LoginCrmTest {
   }
 
   @Test
-  fun whenSendPostRequestWithAuthorization_thenCorrect() {
+  fun whenSendPostRequestWithAuthorization_thenStatus200() {
     val request: Request = Request.Builder()
       .url(environmentConfiguration.getBaseUrl() + environmentConfiguration.crmSingInEndpoint)
       .addHeader("Authorization", Credentials.basic(environmentConfiguration.user!!, environmentConfiguration.pass!!))
-      .post(RequestBodyGenerator.forSuccessfullyCrmAuthorisation())
+      .post(CrmBodyGenerator(environmentConfiguration).authoriseCrm())
       .build()
     val call: Call = client.newCall(request)
     val response: Response = call.execute()

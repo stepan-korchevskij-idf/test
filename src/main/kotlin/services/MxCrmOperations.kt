@@ -1,8 +1,9 @@
 package services
 
 import SelenideCustomDriver
-import api.generator.RequestBodyGenerator
+import api.generator.CrmBodyGenerator
 import com.codeborne.selenide.Selenide
+import config.environment.EnvironmentConfiguration
 import config.environment.EnvironmentConfigurationHolder
 import okhttp3.*
 import org.apache.logging.log4j.LogManager
@@ -11,15 +12,15 @@ import pages.crm.MainCrmPage
 import utils.JsonParser
 import java.net.HttpCookie
 
-class MxCrmOperations {
-  private val environmentConfiguration = EnvironmentConfigurationHolder.configuration
+class MxCrmOperations(
+  private val environmentConfiguration: EnvironmentConfiguration = EnvironmentConfigurationHolder.configuration
+) {
   private val logger = LogManager.getLogger(this.javaClass.simpleName)
   val mainPage by lazy { MainCrmPage() }
 
   fun openStartPage() {
-    val client = getClient()
     val request: Request = getRequest()
-    val call: Call = client.newCall(request)
+    val call: Call = getClient().newCall(request)
     val response: Response = call.execute()
     val crmUser = JsonParser.fromBodyResponse(response, CrmUser::class.java)
     crmUser.error?.let { logger.error(it) }
@@ -42,7 +43,7 @@ class MxCrmOperations {
     return Request.Builder()
       .url(environmentConfiguration.getBaseUrl() + environmentConfiguration.crmSingInEndpoint)
       .addHeader("Authorization", Credentials.basic(environmentConfiguration.user!!, environmentConfiguration.pass!!))
-      .post(RequestBodyGenerator.forSuccessfullyCrmAuthorisation())
+      .post(CrmBodyGenerator(environmentConfiguration).authoriseCrm())
       .build()
   }
 }
