@@ -1,10 +1,10 @@
-import com.codeborne.selenide.Selenide.open
 import com.codeborne.selenide.WebDriverRunner
 import config.driver.DriverConfigProvider
 import config.environment.EnvironmentConfigurationHolder
 import driver.SelenideDriverFactoryManager
 import org.apache.logging.log4j.LogManager
 import org.openqa.selenium.WebDriver
+import utils.addBorderForEachClickedButton
 
 object SelenideCustomDriver {
   private val driverConfiguration = DriverConfigProvider.getConfiguration()
@@ -26,5 +26,11 @@ object SelenideCustomDriver {
 
   fun authorize() {
     open(EnvironmentConfigurationHolder.environmentConfiguration.getBaseUrlForAuthorisation())
+  }
+
+  fun open(relativeOrAbsoluteUrl: String?) {
+    logger.info("Navigating to '$relativeOrAbsoluteUrl'")
+    com.codeborne.selenide.Selenide.open(relativeOrAbsoluteUrl)
+    addBorderForEachClickedButton(getDriver())
   }
 }

@@ -1,6 +1,6 @@
 package services
 
-import com.codeborne.selenide.Selenide
+import SelenideCustomDriver
 import config.environment.EnvironmentConfigurationHolder
 import pages.LoanDetailsPage
 import pages.LoginPage
@@ -10,6 +10,6 @@ class MxPrivateAreaOperations() {
   val loanDetailsPage by lazy { LoanDetailsPage() }
 
   fun openStartPage() {
-    Selenide.open(EnvironmentConfigurationHolder.environmentConfiguration.privateAreaStartEndpoint)
+    SelenideCustomDriver.open(EnvironmentConfigurationHolder.environmentConfiguration.privateAreaStartEndpoint)
   }
 }

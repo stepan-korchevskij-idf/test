@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
 import java.util.concurrent.TimeUnit
 
+@Deprecated("Use SelenideCustomDriver")
 object CustomDriver {
   private val driverConfiguration = DriverConfigProvider.getConfiguration()
   private val driverThreadLocal = ThreadLocal<WebDriver>()
