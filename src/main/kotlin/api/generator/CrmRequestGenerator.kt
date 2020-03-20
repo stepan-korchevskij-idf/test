@@ -1,19 +1,17 @@
 package api.generator
 
 import api.client.CustomRequest
-import api.client.data.HeaderType
 import api.client.data.HttpMethod
+import api.generator.data.AuthoriseForm
 import config.environment.EnvironmentConfiguration
-import okhttp3.Credentials
 
 class CrmRequestGenerator(private val envConfig: EnvironmentConfiguration) {
 
   fun getAuthorizeCrmRequest(): CustomRequest {
-    return CustomRequest.Builder()
-      .url(envConfig.getBaseUrl() + envConfig.crmSingInEndpoint)
-      .addHeader(HeaderType.AUTHORIZATION.text, Credentials.basic(envConfig.user!!, envConfig.pass!!))
-      .body(CrmBodyGenerator(envConfig).authorizeCrm())
-      .method(HttpMethod.POST)
+    val authoriseForm = AuthoriseForm(envConfig.crmUser!!, envConfig.crmPass!!, envConfig.crmCaptcha!!)
+    return CustomRequest.Builder(envConfig.getBaseUrl() + envConfig.crmSingInEndpoint, HttpMethod.POST)
+      .credentials(api.client.Credentials(envConfig.user!!, envConfig.pass!!))
+      .body(authoriseForm)
       .build()
   }
 }

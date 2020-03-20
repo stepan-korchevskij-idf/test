@@ -2,7 +2,7 @@ package ui
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
-import services.MxCrmOperations
+import services.crm.MxCrmOperations
 
 class CrmTest : BaseTest() {
 
@@ -10,7 +10,7 @@ class CrmTest : BaseTest() {
   fun checkAuthorizationAsAdmin() {
     MxCrmOperations().apply {
       openStartPage()
-      Assertions.assertEquals("admin", mainPage.getRole())
+      Assertions.assertEquals("admin", mxUiOperations.mainPage.getRole())
     }
   }
 }
