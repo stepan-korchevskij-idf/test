@@ -14,7 +14,7 @@ class CrmBodyGenerator(private val envConfig: EnvironmentConfiguration = Environ
   private val mapper = ObjectMapper().registerModule(KotlinModule())
   private val jsonMediaType: MediaType = "application/json; charset=utf-8".toMediaType()
 
-  fun authoriseCrm(): RequestBody {
+  fun authorizeCrm(): RequestBody {
     val authoriseForm = AuthoriseForm(envConfig.crmUser!!, envConfig.crmPass!!, envConfig.crmCaptcha!!)
     return mapper.writeValueAsString(authoriseForm).toRequestBody(jsonMediaType)
   }
