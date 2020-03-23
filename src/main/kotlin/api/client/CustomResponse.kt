@@ -4,9 +4,12 @@ import api.client.data.HeaderType
 import java.net.HttpCookie
 import java.util.*
 
-class CustomResponse {
-  var body: String? = null
-  var headers: Map<String, List<String>> = TreeMap<String, List<String>>()
+class CustomResponse(
+  val code: Int,
+  val message: String,
+  val body: String? = null,
+  val headers: Map<String, List<String>> = TreeMap<String, List<String>>()
+) {
 
   fun getCookies(): Map<String, String> {
     return headers[HeaderType.COOKIE.text]

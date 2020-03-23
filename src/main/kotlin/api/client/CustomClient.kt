@@ -18,10 +18,7 @@ object CustomClient : HttpClient {
   }
 
   override fun transformOkHttpResponseToCustomResponse(response: Response): CustomResponse {
-    return CustomResponse().also {
-      it.body = response.body?.string()
-      it.headers = response.headers.toMultimap()
-    }
+    return CustomResponse(response.code, response.message, response.body?.string(), response.headers.toMultimap())
   }
 
   override fun transformCustomRequestToOkHttpRequest(customRequest: CustomRequest): Request {
