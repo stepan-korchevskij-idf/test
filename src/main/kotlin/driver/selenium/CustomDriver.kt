@@ -1,5 +1,6 @@
+package driver.selenium
+
 import config.driver.DriverConfigProvider
-import driver.selenium.DriverFactoryManager
 import org.apache.logging.log4j.LogManager
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver

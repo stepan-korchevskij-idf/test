@@ -4,6 +4,7 @@ import config.driver.DriverConfigProvider
 import config.environment.EnvironmentConfigurationHolder
 import driver.SelenideDriverFactoryManager
 import org.apache.logging.log4j.LogManager
+import org.openqa.selenium.Cookie
 import org.openqa.selenium.WebDriver
 
 object SelenideCustomDriver {
@@ -25,6 +26,16 @@ object SelenideCustomDriver {
   }
 
   fun authorize() {
-    open(EnvironmentConfigurationHolder.environmentConfiguration.getBaseUrlForAuthorisation())
+    open(EnvironmentConfigurationHolder.configuration.getBaseUrlForAuthorisation())
+  }
+
+  fun deleteCookie(name: String) {
+    logger.info("Deleting cookie: '$name'")
+    getDriver().manage().deleteCookieNamed(name)
+  }
+
+  fun addCookie(name: String, value: String) {
+    logger.info("Adding cookie: '$name': '$value'")
+    getDriver().manage().addCookie(Cookie(name, value))
   }
 }
