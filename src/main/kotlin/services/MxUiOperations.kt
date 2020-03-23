@@ -1,4 +1,4 @@
-package services.crm
+package services
 
 import SelenideCustomDriver
 import api.client.data.CookieType
@@ -11,13 +11,16 @@ class MxUiOperations(private val envConfig: EnvironmentConfiguration) {
   val mainPage by lazy { MainCrmPage() }
 
   fun addSessionCookieToBrowser() {
-    SelenideCustomDriver.addCookie(
-      CookieType.JSESSIONID.text,
-      DynamicContextHolder.dynamicContext.sessionCookie[CookieType.JSESSIONID.text]!!
-    )
+    SelenideCustomDriver.apply {
+      deleteCookie(CookieType.JSESSIONID.text)
+      addCookie(
+        CookieType.JSESSIONID.text,
+        DynamicContextHolder.dynamicContext.sessionCookie[CookieType.JSESSIONID.text]!!
+      )
+    }
   }
 
-  fun openStartPage() {
+  fun openCrmStartPage() {
     Selenide.open(envConfig.crmStartEndpoint)
   }
 }

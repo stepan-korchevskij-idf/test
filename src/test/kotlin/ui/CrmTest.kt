@@ -1,6 +1,7 @@
 package ui
 
-import org.junit.jupiter.api.Assertions
+import com.codeborne.selenide.Condition.text
+import com.codeborne.selenide.Selenide.`$`
 import org.junit.jupiter.api.Test
 import services.crm.MxCrmOperations
 
@@ -10,7 +11,7 @@ class CrmTest : BaseTest() {
   fun checkAuthorizationAsAdmin() {
     MxCrmOperations().apply {
       openStartPage()
-      Assertions.assertEquals("admin", mxUiOperations.mainPage.getRole())
+      `$`(mxUiOperations.mainPage.role).shouldHave(text("admin"))
     }
   }
 }

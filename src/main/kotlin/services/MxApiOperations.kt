@@ -1,4 +1,4 @@
-package services.crm
+package services
 
 import api.client.CustomClient
 import api.client.data.CookieType

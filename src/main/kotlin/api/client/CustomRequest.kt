@@ -24,7 +24,6 @@ class CustomRequest private constructor(
 
     fun body(body: Any) = apply { this.body = body }
     fun credentials(credentials: Credentials) = apply { this.credentials = credentials }
-
     fun build() = CustomRequest(url, method, headers, body, credentials)
   }
 }

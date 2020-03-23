@@ -6,7 +6,7 @@ import okhttp3.*
 import okhttp3.Credentials
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.toRequestBody
-import utils.transformDataToJsonString
+import utils.transformDataToJson
 
 object CustomClient : HttpClient {
   private var client: OkHttpClient = OkHttpClient.Builder().build()
@@ -18,7 +18,11 @@ object CustomClient : HttpClient {
   }
 
   override fun transformOkHttpResponseToCustomResponse(response: Response): CustomResponse {
-    return CustomResponse(response.code, response.message, response.body?.string(), response.headers.toMultimap())
+    return CustomResponse.Builder(response.code)
+      .message(response.message)
+      .body(response.body?.string())
+      .headers(response.headers.toMultimap())
+      .build()
   }
 
   override fun transformCustomRequestToOkHttpRequest(customRequest: CustomRequest): Request {
@@ -42,6 +46,6 @@ object CustomClient : HttpClient {
   }
 
   private fun transformAnyToRequestBody(data: Any): RequestBody {
-    return transformDataToJsonString(data).toRequestBody("application/json; charset=utf-8".toMediaType())
+    return transformDataToJson(data).toRequestBody("application/json; charset=utf-8".toMediaType())
   }
 }
