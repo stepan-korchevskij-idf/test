@@ -1,9 +1,9 @@
 package listeners
 
-import SelenideCustomDriver
 import org.junit.jupiter.api.extension.AfterEachCallback
 import org.junit.jupiter.api.extension.ExtensionContext
-import utils.ScreenshotUtils
+import ui.ScreenshotUtils
+import ui.SelenideCustomDriver
 
 class TestListener : AfterEachCallback {
 

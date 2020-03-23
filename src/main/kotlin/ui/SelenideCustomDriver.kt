@@ -1,11 +1,13 @@
+package ui
+
 import com.codeborne.selenide.Selenide.open
 import com.codeborne.selenide.WebDriverRunner
 import config.driver.DriverConfigProvider
 import config.environment.EnvironmentConfigurationHolder
-import driver.SelenideDriverFactoryManager
 import org.apache.logging.log4j.LogManager
 import org.openqa.selenium.Cookie
 import org.openqa.selenium.WebDriver
+import ui.driver.SelenideDriverFactoryManager
 
 object SelenideCustomDriver {
   private val driverConfiguration = DriverConfigProvider.getConfiguration()

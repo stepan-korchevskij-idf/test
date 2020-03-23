@@ -1,7 +1,7 @@
-package pages.crm
+package ui.pages.crm
 
 import org.openqa.selenium.By
-import pages.BasePage
+import ui.pages.BasePage
 
 class MainCrmPage : BasePage() {
   override var identifierPage: By = By.cssSelector(".login-view.container")

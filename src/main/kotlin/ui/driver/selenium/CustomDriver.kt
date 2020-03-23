@@ -1,4 +1,4 @@
-package driver.selenium
+package ui.driver.selenium
 
 import config.driver.DriverConfigProvider
 import org.apache.logging.log4j.LogManager

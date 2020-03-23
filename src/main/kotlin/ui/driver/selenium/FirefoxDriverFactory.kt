@@ -1,25 +1,28 @@
-package driver
+package ui.driver.selenium
 
-import com.codeborne.selenide.Configuration
 import config.driver.DriverConfiguration
+import org.openqa.selenium.Capabilities
+import org.openqa.selenium.WebDriver
+import org.openqa.selenium.firefox.FirefoxDriver
 import org.openqa.selenium.firefox.FirefoxOptions
 import org.openqa.selenium.firefox.FirefoxProfile
-import org.openqa.selenium.remote.DesiredCapabilities
 
-class SelenideFirefoxDriverFactory(driverConfiguration: DriverConfiguration) :
-  SelenideDefaultDriverFactory(driverConfiguration) {
+class FirefoxDriverFactory(driverConfiguration: DriverConfiguration) : DefaultDriverFactory(driverConfiguration) {
 
-  override fun createCapability(): DesiredCapabilities {
-    Configuration.browserVersion = driverConfiguration.firefoxVersion
-    return getGeneralDesiredCapabilities().apply {
-      val firefoxOptions = FirefoxOptions()
-      firefoxOptions.profile = getFirefoxProfile()
-      merge(firefoxOptions)
-    }
+  private val systemPropertyForInitDriver by lazy {
+    Pair("webdriver.gecko.driver", "src/test/resources/drivers/geckodriver.exe")
   }
 
-  override fun createDriver(desiredCapabilities: DesiredCapabilities) {
-    Configuration.browserCapabilities = desiredCapabilities
+  override fun createCapability(): FirefoxOptions {
+    val firefoxOptions = FirefoxOptions()
+    firefoxOptions.merge(getGeneralDesiredCapabilities())
+    firefoxOptions.profile = getFirefoxProfile()
+    return firefoxOptions
+  }
+
+  override fun createDriver(capabilities: Capabilities): WebDriver {
+    initLocalDriverLocation(systemPropertyForInitDriver.first, systemPropertyForInitDriver.second)
+    return FirefoxDriver(capabilities as FirefoxOptions)
   }
 
   private fun getFirefoxProfile(): FirefoxProfile {

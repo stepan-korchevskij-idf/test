@@ -1,6 +1,5 @@
-package utils
+package ui
 
-import SelenideCustomDriver
 import org.apache.logging.log4j.LogManager
 import ru.yandex.qatools.ashot.AShot
 import ru.yandex.qatools.ashot.shooting.ShootingStrategies

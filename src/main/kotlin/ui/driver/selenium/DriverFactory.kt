@@ -1,4 +1,4 @@
-package driver.selenium
+package ui.driver.selenium
 
 import org.openqa.selenium.WebDriver
 

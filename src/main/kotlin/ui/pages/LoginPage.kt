@@ -1,11 +1,11 @@
-package pages
+package ui.pages
 
 import com.codeborne.selenide.Condition
 import com.codeborne.selenide.Selenide.`$`
-import controls.ButtonElement
-import controls.InputElement
 import data.User
 import org.openqa.selenium.By
+import ui.controls.ButtonElement
+import ui.controls.InputElement
 
 class LoginPage() : BasePage() {
   override var identifierPage: By = By.cssSelector(".login-view.container")

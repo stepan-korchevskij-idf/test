@@ -1,4 +1,4 @@
-package driver
+package ui.driver
 
 interface SelenideDriverFactory {
   fun getDriver()

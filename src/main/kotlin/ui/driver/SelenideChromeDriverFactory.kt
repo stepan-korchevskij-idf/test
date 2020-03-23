@@ -1,4 +1,4 @@
-package driver
+package ui.driver
 
 import com.codeborne.selenide.Configuration
 import config.driver.DriverConfiguration

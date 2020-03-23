@@ -1,8 +1,8 @@
-package driver
+package ui.driver
 
 import config.driver.DriverConfiguration
-import driver.selenium.DriverExecutionType
 import org.apache.logging.log4j.LogManager
+import ui.driver.selenium.DriverExecutionType
 
 object SelenideDriverFactoryManager {
   fun getDriverFactory(driverConfiguration: DriverConfiguration): SelenideDefaultDriverFactory {

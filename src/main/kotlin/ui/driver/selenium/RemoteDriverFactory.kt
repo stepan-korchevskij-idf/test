@@ -1,10 +1,10 @@
-package driver.selenium
+package ui.driver.selenium
 
 import config.driver.DriverConfiguration
-import driver.BrowserType
 import org.openqa.selenium.Capabilities
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.remote.RemoteWebDriver
+import ui.driver.BrowserType
 import java.net.URL
 
 class RemoteDriverFactory(driverConfiguration: DriverConfiguration) : DefaultDriverFactory(driverConfiguration) {

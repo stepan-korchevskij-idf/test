@@ -1,11 +1,11 @@
 package services
 
-import SelenideCustomDriver
 import api.client.data.CookieType
 import com.codeborne.selenide.Selenide
 import config.environment.EnvironmentConfiguration
 import context.DynamicContextHolder
-import pages.crm.MainCrmPage
+import ui.SelenideCustomDriver
+import ui.pages.crm.MainCrmPage
 
 class MxUiOperations(private val envConfig: EnvironmentConfiguration) {
   val mainPage by lazy { MainCrmPage() }
