@@ -2,7 +2,7 @@ package api.generator
 
 import api.client.CustomRequest
 import api.client.data.HttpMethod
-import api.generator.data.AuthorizeForm
+import api.data.AuthorizeForm
 import config.environment.EnvironmentConfiguration
 import config.environment.EnvironmentConfigurationHolder
 
