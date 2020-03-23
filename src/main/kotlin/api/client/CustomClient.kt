@@ -12,19 +12,19 @@ object CustomClient : HttpClient {
   private var client: OkHttpClient = OkHttpClient.Builder().build()
 
   override fun sendRequest(customRequest: CustomRequest): CustomResponse {
-    return client.newCall(transformToOkHttpRequest(customRequest)).execute().use {
-      transformToCustomResponse(it)
+    return client.newCall(transformCustomRequestToOkHttpRequest(customRequest)).execute().use {
+      transformOkHttpResponseToCustomResponse(it)
     }
   }
 
-  override fun transformToCustomResponse(response: Response): CustomResponse {
+  override fun transformOkHttpResponseToCustomResponse(response: Response): CustomResponse {
     return CustomResponse().also {
       it.body = response.body?.string()
       it.headers = response.headers.toMultimap()
     }
   }
 
-  override fun transformToOkHttpRequest(customRequest: CustomRequest): Request {
+  override fun transformCustomRequestToOkHttpRequest(customRequest: CustomRequest): Request {
     return Request.Builder().apply {
         url(customRequest.url)
         customRequest.headers.forEach { addHeader(it.first, it.second) }
