@@ -6,11 +6,12 @@ import config.environment.EnvironmentConfigurationHolder
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
 
-open class BaseTest {
+open class WireMockBaseTest {
   private lateinit var wireMockServer: WireMockServer
+  private val host = "localhost"
+  private val port: Int = 8080
   val envConfig = EnvironmentConfigurationHolder.configuration
-  val host = "localhost"
-  val port: Int = 8080
+  val baseUrl = "http://$host:$port"
 
   @BeforeAll
   fun startWireMockServer() {

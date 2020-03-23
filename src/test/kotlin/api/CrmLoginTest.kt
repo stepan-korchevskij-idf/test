@@ -14,7 +14,7 @@ import utils.transformDataToJson
 import wiremock.addCrmLoginStub
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class CrmLoginTest : BaseTest() {
+class CrmLoginTest : WireMockBaseTest() {
 
   @BeforeAll
   fun createStub() {
@@ -26,7 +26,7 @@ class CrmLoginTest : BaseTest() {
     val codeExpected = 200
     val bodyExpected = transformDataToJson(AuthorizedUser(1, "admin", "Administrator", 10, null))
     val request = CrmRequestGenerator().getAuthorizeCrmRequest()
-    request.url = "http://$host:$port${envConfig.crmSingInEndpoint}"
+    request.url = "$baseUrl${envConfig.crmSingInEndpoint}"
     val response = CustomClient.sendRequest(request)
     assertAll(
       Executable { assertEquals(codeExpected, response.code) },
