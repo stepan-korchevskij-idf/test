@@ -2,6 +2,7 @@ package api
 
 import com.github.tomakehurst.wiremock.WireMockServer
 import com.github.tomakehurst.wiremock.client.WireMock
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
 import config.environment.EnvironmentConfigurationHolder
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
@@ -9,17 +10,17 @@ import org.junit.jupiter.api.TestInstance
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 open class WireMockBaseTest {
-  private lateinit var wireMockServer: WireMockServer
   private val host = "localhost"
-  private val port: Int = 8080
+  private lateinit var wireMockServer: WireMockServer
+  lateinit var baseUrl: String
   val envConfig = EnvironmentConfigurationHolder.configuration
-  val baseUrl = "http://$host:$port"
 
   @BeforeAll
   fun startWireMockServer() {
-    wireMockServer = WireMockServer()
+    wireMockServer = WireMockServer(options().dynamicPort())
     wireMockServer.start()
-    WireMock.configureFor(host, port)
+    baseUrl = "http://$host:${wireMockServer.port()}"
+    WireMock.configureFor(host, wireMockServer.port())
   }
 
   @AfterAll
