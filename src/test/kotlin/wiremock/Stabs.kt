@@ -17,12 +17,12 @@ fun addCrmLoginStub() {
   stubFor(
     post(urlEqualTo(envConfig.crmSingInEndpoint!!))
       .withRequestBody(equalToJson(transformDataToJson(requestBody)))
-      .withBasicAuth(envConfig.user, envConfig.pass)
+      .withBasicAuth(envConfig.user, envConfig.pass)//
       .withHeader(HeaderType.CONTENT_TYPE.text, equalToIgnoreCase(ContentType.APP_JSON.text))
       .willReturn(
         aResponse()
           .withHeader(HeaderType.CONTENT_TYPE.text, ContentType.APP_JSON.text)
-          .withHeader(HeaderType.COOKIE.text, cookie)
+          .withHeader(HeaderType.COOKIE.text, cookie)//
           .withBody(transformDataToJson(authorizedUser))
       )
   )

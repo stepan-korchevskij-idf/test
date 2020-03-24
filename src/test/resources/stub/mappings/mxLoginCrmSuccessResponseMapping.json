@@ -1,0 +1,24 @@
+{
+  "priority": 3,
+  "name": "mxLoginCrmStub",
+  "request": {
+    "method": "POST",
+    "urlPattern": "/secure/rest/sign/in",
+    "bodyPatterns": [
+      {
+        "equalToJson": {
+          "login": "admin",
+          "password": "11111111",
+          "captcha": "11111"
+        }
+      }
+    ]
+  },
+  "response": {
+    "status": 200,
+    "bodyFileName": "mxLoginCrmSuccessResponse.json",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}
