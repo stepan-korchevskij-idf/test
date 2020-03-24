@@ -1,5 +1,6 @@
 package api.client
 
+import api.client.data.ContentType
 import api.client.data.HeaderType
 import api.client.data.HttpMethod
 import okhttp3.*
@@ -32,7 +33,7 @@ object CustomClient : HttpClient {
         customRequest.credentials?.let {
           addHeader(
             HeaderType.AUTHORIZATION.text,
-            Credentials.basic(customRequest.credentials.username, customRequest.credentials.password)
+            Credentials.basic(customRequest.credentials!!.username, customRequest.credentials!!.password)
           )
         }
         when (customRequest.method) {
@@ -46,6 +47,6 @@ object CustomClient : HttpClient {
   }
 
   private fun transformAnyToRequestBody(data: Any): RequestBody {
-    return transformDataToJson(data).toRequestBody("application/json; charset=utf-8".toMediaType())
+    return transformDataToJson(data).toRequestBody(ContentType.APP_JSON.text.toMediaType())
   }
 }

@@ -3,11 +3,11 @@ package api.client
 import api.client.data.HttpMethod
 
 class CustomRequest private constructor(
-  val url: String,
-  val method: HttpMethod,
-  val headers: List<Pair<String, String>> = ArrayList(),
-  val body: Any? = null,
-  val credentials: Credentials? = null
+  var url: String,
+  var method: HttpMethod,
+  var headers: List<Pair<String, String>> = ArrayList(),
+  var body: Any? = null,
+  var credentials: Credentials? = null
 ) {
 
   data class Builder(
