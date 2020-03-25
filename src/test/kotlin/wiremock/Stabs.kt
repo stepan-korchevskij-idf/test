@@ -17,8 +17,7 @@ fun addCrmLoginStub() {
   stubFor(
     post(urlEqualTo(envConfig.crmSingInEndpoint!!))
       .withRequestBody(equalToJson(transformDataToJson(requestBody)))
-      .withBasicAuth(envConfig.user, envConfig.pass)//
-      .withHeader(HeaderType.CONTENT_TYPE.text, equalToIgnoreCase(ContentType.APP_JSON.text))
+      .withHeader(HeaderType.CONTENT_TYPE.text, containing(ContentType.APP_JSON.text))
       .willReturn(
         aResponse()
           .withHeader(HeaderType.CONTENT_TYPE.text, ContentType.APP_JSON.text)

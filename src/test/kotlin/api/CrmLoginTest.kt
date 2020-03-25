@@ -3,6 +3,9 @@ package api
 import api.client.CustomClient
 import api.data.AuthorizedUser
 import api.generator.CrmRequestGenerator
+import com.fasterxml.jackson.core.JsonFactory
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import org.junit.jupiter.api.Assertions.assertAll
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll
@@ -15,6 +18,14 @@ class CrmLoginTest : WireMockBaseTest() {
 
   @BeforeAll
   fun createStub() {
+    ObjectMapper(JsonFactory())
+      .registerModule(KotlinModule())
+      .readValue(
+        Thread.currentThread().contextClassLoader.getResourceAsStream("stub/mappings/mxLoginCrmSuccessResponseMapping.json"),
+        Mock::
+        class.java
+      )
+
     addCrmLoginStub()
   }
 
