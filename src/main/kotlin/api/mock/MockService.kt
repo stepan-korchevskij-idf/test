@@ -1,39 +1,34 @@
 package api.mock
 
-import api.client.data.HttpMethod.*
+import api.mock.Request.Method.*
 import com.github.tomakehurst.wiremock.client.WireMock.*
 
-class CustomMockService : MockService {
+object CustomMockService : MockService {
   override fun addStub(mock: Mock) {
-    //todo extract into small methods
     val urlMatching = urlMatching(mock.request.urlPattern)
     stubFor(
-      when (mock.httpMethod) {
+      when (mock.request.method) {
         GET -> get(urlMatching)
         POST -> post(urlMatching)
         DELETE -> delete(urlMatching)
         PUT -> put(urlMatching)
-        else -> any(urlMatching)
+        ANY -> any(urlMatching)
+        else -> throw NullPointerException()
       }
         .withName(mock.name)
         .apply {
           mock.priority?.let { atPriority(it) }
-          mock.request.apply {
-            withRequestBody(equalToJson(bodyPatterns))
-            headers.forEach { (nameHeader: String, headers: List<String>) ->
-              headers.forEach { header -> withHeader(nameHeader, containing(header)) }
-            }
+          mock.request.bodyPatterns?.forEach { bodyPattern: BodyPattern ->
+            bodyPattern.equalToJson?.let { withRequestBody(equalToJson(it.toPrettyString())) }
           }
         }
         .willReturn(
           aResponse()
-            .withStatus(mock.response.status)
             .apply {
-              mock.response.apply {
-                withBody(body)
-                headers.forEach { (nameHeader: String, headers: List<String>) ->
-                  headers.forEach { header -> withHeader(nameHeader, header) }
-                }
+              mock.response?.apply {
+                status?.let { withStatus(it) }
+                bodyFileName?.let { withBodyFile(it) }
+                headers?.forEach { nameHeader, value -> withHeader(nameHeader, value) }
               }
             })
     )

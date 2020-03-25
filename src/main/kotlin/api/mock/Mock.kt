@@ -1,23 +1,33 @@
 package api.mock
 
-import api.client.data.HttpMethod
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.databind.JsonNode
 
-class Mock private constructor(
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class Mock(
   var priority: Int?,
   var name: String?,
-  var httpMethod: HttpMethod?,
   var request: Request,
-  var response: Response
+  var response: Response?
 )
 
-class Request private constructor(
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class Request(
+  var method: Method?,
   var urlPattern: String,
-  var bodyPatterns: String?,
-  var headers: Map<String, List<String>> = HashMap()
+  var bodyPatterns: List<BodyPattern>?
+) {
+  enum class Method {
+    GET, POST, DELETE, PUT, ANY
+  }
+}
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class Response(
+  var status: Int?,
+  var bodyFileName: String?,
+  var headers: Map<String, String>?
 )
 
-class Response private constructor(
-  val status: Int,
-  var body: String?,
-  var headers: Map<String, List<String>> = HashMap()
-)
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class BodyPattern(var equalToJson: JsonNode?)
