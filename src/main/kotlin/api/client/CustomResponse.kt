@@ -3,12 +3,13 @@ package api.client
 import api.client.data.HeaderType
 import java.net.HttpCookie
 import java.util.*
+import kotlin.collections.HashMap
 
 class CustomResponse private constructor(
   val code: Int,
   val message: String?,
   val body: String?,
-  val headers: Map<String, List<String>> = TreeMap<String, List<String>>()
+  val headers: Map<String, List<String>> = HashMap()
 ) {
 
   fun getCookies(): Map<String, String> {

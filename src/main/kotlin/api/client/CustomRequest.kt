@@ -5,7 +5,7 @@ import api.client.data.HttpMethod
 class CustomRequest private constructor(
   var url: String,
   var method: HttpMethod,
-  var headers: List<Pair<String, String>> = ArrayList(),
+  var headers: Map<String, List<String>> = HashMap(),
   var body: Any? = null,
   var credentials: Credentials? = null
 ) {
@@ -13,13 +13,17 @@ class CustomRequest private constructor(
   data class Builder(
     var url: String,
     var method: HttpMethod,
-    var headers: ArrayList<Pair<String, String>> = ArrayList(),
+    var headers: MutableMap<String, MutableList<String>> = HashMap(),
     var body: Any? = null,
     var credentials: Credentials? = null
   ) {
 
     fun addHeader(name: String, value: String) = apply {
-      this.headers.add(Pair(name, value))
+      if (headers.contains(name)) {
+        headers[name]?.add(value) ?: headers.put(name, mutableListOf(value))
+      } else {
+        headers[name] = mutableListOf(value)
+      }
     }
 
     fun body(body: Any) = apply { this.body = body }
