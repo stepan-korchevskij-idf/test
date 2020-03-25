@@ -4,6 +4,7 @@ import api.mock.Request.Method.*
 import com.github.tomakehurst.wiremock.client.WireMock.*
 
 object CustomMockService : MockService {
+
   override fun addStub(mock: Mock) {
     val urlMatching = urlMatching(mock.request.urlPattern)
     stubFor(
