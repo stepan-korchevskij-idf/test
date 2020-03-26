@@ -3,22 +3,20 @@ package api
 import api.client.CustomClient
 import api.data.AuthorizedUser
 import api.generator.CrmRequestGenerator
-import api.mock.CustomMockService
-import api.mock.StubType
+import api.mock.MockType
+import api.mock.wiremock.WireMockService
 import org.junit.jupiter.api.Assertions.assertAll
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.function.Executable
-import utils.getMockObjectFromResourceFile
 import utils.transformJsonToAny
 
 class CrmLoginTest : WireMockBaseTest() {
 
   @BeforeAll
   fun createStub() {
-    val mock = getMockObjectFromResourceFile(StubType.MX_LOGIN_CRM__SUCCESS_RESPONSE)
-    CustomMockService.addStub(mock)
+    WireMockService().addStub(MockType.MX_LOGIN_CRM_SUCCESS_RESPONSE)
   }
 
   @Test

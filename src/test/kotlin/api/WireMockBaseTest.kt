@@ -10,7 +10,6 @@ import org.junit.jupiter.api.TestInstance
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 open class WireMockBaseTest {
-  private val mockDirectory = "stub"
   private val host = "localhost"
   private lateinit var wireMockServer: WireMockServer
   lateinit var baseUrl: String
@@ -18,10 +17,7 @@ open class WireMockBaseTest {
 
   @BeforeAll
   fun startWireMockServer() {
-    wireMockServer = WireMockServer(
-      options().dynamicPort()
-        .withRootDirectory(Thread.currentThread().contextClassLoader.getResource(mockDirectory)!!.path)
-    )
+    wireMockServer = WireMockServer(options().dynamicPort())
     wireMockServer.start()
     baseUrl = "http://$host:${wireMockServer.port()}"
     WireMock.configureFor(host, wireMockServer.port())

@@ -2,7 +2,7 @@ package config.driver
 
 import ui.driver.BrowserType
 import ui.driver.selenium.DriverExecutionType
-import utils.getSelectedClassObjectFromResourceFile
+import utils.ResourceParser
 import java.nio.file.NoSuchFileException
 
 object DriverConfigProvider {
@@ -47,7 +47,7 @@ object DriverConfigProvider {
   }
 
   private fun readConfigurationFromFile(): DriverConfiguration {
-    return getSelectedClassObjectFromResourceFile(NAME_FILE, DriverConfiguration::class.java)
+    return ResourceParser.getSelectedClassObjectFromYamlFile(NAME_FILE, DriverConfiguration::class.java)
       ?: throw NoSuchFileException(NAME_FILE)
   }
 }
