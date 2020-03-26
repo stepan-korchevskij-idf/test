@@ -32,8 +32,8 @@ dependencies {
   implementation("org.apache.logging.log4j:log4j-api:$log4j")
   implementation("ru.yandex.qatools.ashot:ashot:$ashot")
   implementation("com.squareup.okhttp3:okhttp:$okhttp")
+  implementation("com.github.tomakehurst:wiremock-jre8:$wiremock")
   testImplementation("org.junit.jupiter:junit-jupiter:$junit")
-  testImplementation("com.github.tomakehurst:wiremock-jre8:$wiremock")
 }
 
 tasks.named<Test>("test") {

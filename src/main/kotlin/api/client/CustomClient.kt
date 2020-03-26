@@ -29,7 +29,7 @@ object CustomClient : HttpClient {
   override fun transformCustomRequestToOkHttpRequest(customRequest: CustomRequest): Request {
     return Request.Builder().apply {
         url(customRequest.url)
-        customRequest.headers.forEach { addHeader(it.first, it.second) }
+        customRequest.headers.forEach { (key, values) -> values.forEach { value -> addHeader(key, value) } }
         customRequest.credentials?.let {
           addHeader(
             HeaderType.AUTHORIZATION.text,
