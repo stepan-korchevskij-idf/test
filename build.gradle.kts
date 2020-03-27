@@ -1,5 +1,5 @@
 plugins {
-  kotlin("jvm") version "1.3.70"
+  kotlin("jvm") version "1.4-M1"
 }
 
 group = "org.example"
@@ -8,6 +8,9 @@ version = "1.0-SNAPSHOT"
 repositories {
   mavenLocal()
   mavenCentral()
+  jcenter()
+  maven("https://dl.bintray.com/kotlin/kotlin-eap")
+  maven("https://kotlin.bintray.com/kotlinx")
 }
 
 val selenium: String by project
@@ -19,9 +22,10 @@ val ashot: String by project
 val junit: String by project
 val wiremock: String by project
 val okhttp: String by project
+val exposed: String by project
+val mysqldriver: String by project
 
 dependencies {
-  implementation(kotlin("stdlib-jdk8"))
   implementation("org.seleniumhq.selenium:selenium-java:$selenium")
   implementation("org.yaml:snakeyaml:$snakeyaml")
   implementation("com.codeborne:selenide:$selenide")
@@ -33,6 +37,11 @@ dependencies {
   implementation("ru.yandex.qatools.ashot:ashot:$ashot")
   implementation("com.squareup.okhttp3:okhttp:$okhttp")
   implementation("com.github.tomakehurst:wiremock-jre8:$wiremock")
+  implementation("org.jetbrains.exposed:exposed-core:$exposed")
+  implementation("org.jetbrains.exposed:exposed-dao:$exposed")
+  implementation("org.jetbrains.exposed:exposed-jdbc:$exposed")
+  implementation("org.jetbrains.exposed:exposed-jodatime:$exposed")
+  implementation("mysql:mysql-connector-java:$mysqldriver")
   testImplementation("org.junit.jupiter:junit-jupiter:$junit")
 }
 

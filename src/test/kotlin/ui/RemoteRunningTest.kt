@@ -2,7 +2,7 @@ package ui
 
 import data.User
 import org.junit.jupiter.api.Test
-import services.MxPrivateAreaOperations
+import services.priveteArea.MxPrivateAreaOperations
 
 class RemoteRunningTest : BaseTest() {
 
