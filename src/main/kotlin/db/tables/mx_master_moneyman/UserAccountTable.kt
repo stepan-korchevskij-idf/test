@@ -12,4 +12,5 @@ object UserAccountTable : LongIdTable("user_account") {
   val creationDate: Column<DateTime> = datetime("creation_date")
   val creator: Column<String> = varchar("creator", 32)
   val email: Column<String> = varchar("email", 254)
+  val password: Column<String> = varchar("password", 64)
 }

@@ -13,4 +13,5 @@ class UserAccount(id: EntityID<Long>) : Entity<Long>(id) {
   val creationDate by UserAccountTable.creationDate
   val creator by UserAccountTable.creator
   val email: String by UserAccountTable.email
+  val password: String by UserAccountTable.password
 }

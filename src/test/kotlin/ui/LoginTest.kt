@@ -20,8 +20,7 @@ class LoginTest : BaseTest() {
 
   @Test
   fun checkLoginWithUserFromDb() {
-    val emailRandomUser = MxDbOperations().getEmailRandomUser()
-    val user = User(emailRandomUser, envConfig.privateAreaDefaultUserPassword!!)
+    val user = MxDbOperations().getUserForSuccessfullyAuthorization()
     MxPrivateAreaOperations().apply {
       openStartPage()
       loginPage.checkOpened()
