@@ -8,7 +8,7 @@ class HeadlessTest : BaseTest() {
 
   @Test
   fun checkLogin() {
-    val user = User(login = "ta-eqqzghjsuq-0267867945@mail.ru", password = "11111111")
+    val user = User("ta-eqqzghjsuq-0267867945@mail.ru", envConfig.privateAreaDefaultUserPassword!!)
     MxPrivateAreaOperations().apply {
       openStartPage()
       loginPage.checkOpened()

@@ -1,5 +1,5 @@
 plugins {
-  kotlin("jvm") version "1.4-M1"
+  kotlin("jvm") version "1.3.71"
 }
 
 group = "org.example"
@@ -9,8 +9,6 @@ repositories {
   mavenLocal()
   mavenCentral()
   jcenter()
-  maven("https://dl.bintray.com/kotlin/kotlin-eap")
-  maven("https://kotlin.bintray.com/kotlinx")
 }
 
 val selenium: String by project
@@ -26,6 +24,7 @@ val exposed: String by project
 val mysqldriver: String by project
 
 dependencies {
+  implementation(kotlin("stdlib-jdk8"))
   implementation("org.seleniumhq.selenium:selenium-java:$selenium")
   implementation("org.yaml:snakeyaml:$snakeyaml")
   implementation("com.codeborne:selenide:$selenide")
