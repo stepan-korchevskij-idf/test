@@ -18,6 +18,7 @@ class MxDbOperations(private val envConfig: EnvironmentConfiguration = Environme
 
   fun getUserForSuccessfullyAuthorization(): User {
     val userAccount = transaction {
+      addLogger(SqlLogger)
       UserAccount.find { UserAccountTable.email.like("%@%") }.first()
     }
     return User(email = userAccount.email, privateAreaPassword = envConfig.privateAreaDefaultUserPassword!!)
