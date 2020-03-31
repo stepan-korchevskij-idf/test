@@ -8,7 +8,7 @@ import services.priveteArea.MxPrivateAreaOperations
 
 class LoginParameterizedTest : BaseTest() {
 
-  @ParameterizedTest
+  @ParameterizedTest(name = "Check login. Test №{index}")
   @ArgumentsSource(CorrectUsersArgumentsProvider::class)
   fun checkLogin(user: User) {
     MxPrivateAreaOperations().apply {

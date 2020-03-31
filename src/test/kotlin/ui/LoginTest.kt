@@ -8,7 +8,8 @@ class LoginTest : BaseTest() {
 
   @Test
   fun checkLogin() {
-    val user = User("ta-eqqzghjsuq-0267867945@mail.ru", envConfig.privateAreaDefaultUserPassword!!)
+    val user =
+      User(email = "ta-eqqzghjsuq-0267867945@mail.ru", privateAreaPassword = envConfig.privateAreaDefaultUserPassword!!)
     MxPrivateAreaOperations().apply {
       openStartPage()
       loginPage.checkOpened()

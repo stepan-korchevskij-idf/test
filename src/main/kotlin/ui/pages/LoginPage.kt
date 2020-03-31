@@ -17,8 +17,8 @@ class LoginPage() : BasePage() {
 
   fun login(user: User) {
     user.apply {
-      typeLogin(login)
-      typePassword(password)
+      typeLogin(login!!)
+      typePassword(privateAreaPassword!!)
     }
     clickLoginButton()
     `$`(CommonLocators.spinner).shouldNotBe(Condition.visible)

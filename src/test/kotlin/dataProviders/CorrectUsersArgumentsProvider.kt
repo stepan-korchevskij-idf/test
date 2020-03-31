@@ -13,8 +13,13 @@ class CorrectUsersArgumentsProvider(envConfig: EnvironmentConfiguration = Enviro
 
   override fun provideArguments(context: ExtensionContext?): Stream<out Arguments> {
     return Stream.of(
+      Arguments.of(MxDbOperations().getUserById(4700)),
       Arguments.of(MxDbOperations().getUserForSuccessfullyAuthorization()),
-      Arguments.of(User("ta-eqqzghjsuq-0267867945@mail.ru", envConfig.privateAreaDefaultUserPassword!!))
+      Arguments.of(
+        User(
+          email = "ta-eqqzghjsuq-0267867945@mail.ru", privateAreaPassword = envConfig.privateAreaDefaultUserPassword!!
+        )
+      )
     )
   }
 }
