@@ -48,13 +48,13 @@ tasks.named<Test>("test") {
   useJUnitPlatform()
 }
 
-open class UiTest : org.gradle.api.tasks.testing.Test()
+open class HeadlessTest : org.gradle.api.tasks.testing.Test()
 
-tasks.register<UiTest>("uiTest") {
+tasks.register<HeadlessTest>("headlessTest") {
   useJUnitPlatform()
   systemProperties["test.driver.headless"] = "true"
   filter {
-    includeTestsMatching("HeadlessTest")
+    includeTestsMatching("*dTest")
   }
 }
 
