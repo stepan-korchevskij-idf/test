@@ -1,4 +1,4 @@
-package services
+package services.priveteArea
 
 import com.codeborne.selenide.Selenide
 import config.environment.EnvironmentConfiguration

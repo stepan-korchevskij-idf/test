@@ -1,7 +1,7 @@
 package ui
 
 import org.junit.jupiter.api.Test
-import services.MxPrivateAreaOperations
+import services.priveteArea.MxPrivateAreaOperations
 
 /**
  * Тест заведомо падающий. Создан только для отладки проекта

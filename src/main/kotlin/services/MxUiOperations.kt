@@ -3,11 +3,12 @@ package services
 import api.client.data.CookieType
 import com.codeborne.selenide.Selenide
 import config.environment.EnvironmentConfiguration
+import config.environment.EnvironmentConfigurationHolder
 import context.DynamicContextHolder
 import ui.SelenideCustomDriver
 import ui.pages.crm.MainCrmPage
 
-class MxUiOperations(private val envConfig: EnvironmentConfiguration) {
+class MxUiOperations(private val envConfig: EnvironmentConfiguration = EnvironmentConfigurationHolder.configuration) {
   val mainPage by lazy { MainCrmPage() }
 
   fun addSessionCookieToBrowser() {

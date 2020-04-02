@@ -9,6 +9,7 @@ object InputElement {
 
   fun type(locator: By, text: String) {
     logger.info("Typing text - '$text' in input - '$locator'")
+    `$`(locator).clear()
     `$`(locator).sendKeys(text)
   }
 }

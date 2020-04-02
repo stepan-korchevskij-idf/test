@@ -13,6 +13,8 @@ class EnvironmentConfiguration {
     get() = field ?: throw IllegalArgumentException(createMessageException(::host))
   var privateAreaStartEndpoint: String? = null
     get() = field ?: throw IllegalArgumentException(createMessageException(::privateAreaStartEndpoint))
+  var privateAreaDefaultUserPassword: String? = null
+    get() = field ?: throw IllegalArgumentException(createMessageException(::privateAreaDefaultUserPassword))
   var crmStartEndpoint: String? = null
     get() = field ?: throw IllegalArgumentException(createMessageException(::crmStartEndpoint))
   var crmUser: String? = null
@@ -23,6 +25,14 @@ class EnvironmentConfiguration {
     get() = field ?: throw IllegalArgumentException(createMessageException(::crmCaptcha))
   var crmSingInEndpoint: String? = null
     get() = field ?: throw IllegalArgumentException(createMessageException(::crmSingInEndpoint))
+  var dbSqlUrl: String? = null
+    get() = field ?: throw IllegalArgumentException(createMessageException(::dbSqlUrl))
+  var dbSqlBorrowerSchema: String? = null
+    get() = field ?: throw IllegalArgumentException(createMessageException(::dbSqlBorrowerSchema))
+  var dbSqlUser: String? = null
+    get() = field ?: throw IllegalArgumentException(createMessageException(::dbSqlUser))
+  var dbSqlPass: String? = null
+    get() = field ?: throw IllegalArgumentException(createMessageException(::dbSqlPass))
 
   private fun createMessageException(nameProperty: KMutableProperty0<String?>) =
     "Property '${nameProperty.name}' must be initialized"

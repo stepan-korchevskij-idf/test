@@ -2,13 +2,14 @@ package ui
 
 import data.User
 import org.junit.jupiter.api.Test
-import services.MxPrivateAreaOperations
+import services.priveteArea.MxPrivateAreaOperations
 
 class LoginTest : BaseTest() {
 
   @Test
   fun checkLogin() {
-    val user = User(login = "ta-eqqzghjsuq-0267867945@mail.ru", password = "11111111")
+    val user =
+      User(email = "ta-eqqzghjsuq-0267867945@mail.ru", privateAreaPassword = envConfig.privateAreaDefaultUserPassword!!)
     MxPrivateAreaOperations().apply {
       openStartPage()
       loginPage.checkOpened()
