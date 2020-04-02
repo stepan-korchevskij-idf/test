@@ -16,7 +16,6 @@ data class User(
   var secondLastName: String? = null,
   var mothersName: String? = null,
   var phone: String? = null,
-  var phoneInternationalCode: String? = null,
   var email: String? = null,
   var confirmationCode: String? = null,
   var confirmPolicy: Boolean? = null,
@@ -27,7 +26,6 @@ data class User(
   var placeOfBirth: String? = null,
   var nationality: String? = null,
   var insuranceNumber: String? = null,
-  var neighborhood: String? = null,
   var docIssuanceDate: LocalDate? = null,
   var docIssuer: String? = null,
   var docIssuerState: String? = null,
@@ -41,15 +39,8 @@ data class User(
   var apartments: String? = null,
   var homePhone: String? = null,
   var housingType: String? = null,
-  var streetNumber: String? = null,
   var district: String? = null,
   var municipality: String? = null,
-  var issuerNumberOther: String? = null,
-  var referencePhoneType: String? = null,
-  var referencePhoneName: String? = null,
-  var referencePhoneNumber: String? = null,
-  var netWorth: String? = null,
-  var secondaryMobilePhone: String? = null,
   var education: String? = null,
   var attestedIncome: String? = null,
   var employment: String? = null,
@@ -58,13 +49,8 @@ data class User(
   var extensionWorkPhone: String? = null,
   var nextSalaryDate: LocalDate? = null,
   var monthlyExpenses: String? = null,
-  var paymentsAmount: String? = null,
-  var salaryFrequency: String? = null,
   var industry: String? = null,
-  var loanReason: String? = null,
-  var leadId: Int? = null,
-  var privateAreaPassword: String? = null,
-  var partnerId: Int? = null
+  var privateAreaPassword: String? = null
 ) {
 
   constructor(resultRow: ResultRow?) : this() {
@@ -78,7 +64,6 @@ data class User(
     secondLastName = resultRow.getOrNull(PersonalDataTable.secondLastName)
     mothersName = resultRow.getOrNull(PersonalDataTable.mothersName)
     phone = resultRow.getOrNull(decrypt(UserAccountTable.phone)) ?: resultRow.getOrNull(UserAccountTable.phone)
-//    phoneInternationalCode = resultRow.getOrNull(UserAccountTable)
     email = resultRow.getOrNull(UserAccountTable.email)
     confirmationCode = resultRow.getOrNull(CreditTable.confirmCode)
     confirmPolicy = resultRow.getOrNull(UserAccountTable.confirmPolicy)
@@ -89,7 +74,6 @@ data class User(
     placeOfBirth = resultRow.getOrNull(PersonalDataTable.placeOfBirth)
     nationality = resultRow.getOrNull(PersonalDataTable.nationality)
     insuranceNumber = resultRow.getOrNull(PersonalDataTable.insuranceNumber)
-//    neighborhood = resultRow.getOrNull(Table)
     docIssuanceDate = resultRow.getOrNull(PersonalDataTable.docIssuanceDate)?.toLocalDate()
     docIssuer = resultRow.getOrNull(PersonalDataTable.docIssuer)
     docIssuerState = resultRow.getOrNull(PersonalDataTable.docIssuerState)
@@ -103,15 +87,8 @@ data class User(
     apartments = resultRow.getOrNull(AddressTable.apartments)
     homePhone = resultRow.getOrNull(decrypt(AddressTable.homePhone)) ?: resultRow.getOrNull(AddressTable.homePhone)
     housingType = resultRow.getOrNull(AddressTable.housingType)
-//    streetNumber = resultRow.getOrNull(Table)
     district = resultRow.getOrNull(AddressTable.district)
     municipality = resultRow.getOrNull(AddressTable.municipality)
-//    issuerNumberOther = resultRow.getOrNull(Table)
-//    referencePhoneType = resultRow.getOrNull(Table)
-//    referencePhoneName = resultRow.getOrNull(Table)
-//    referencePhoneNumber = resultRow.getOrNull(Table)
-//    netWorth = resultRow.getOrNull(Table)
-//    secondaryMobilePhone = resultRow.getOrNull(Table)
     education = resultRow.getOrNull(WorkTable.education)
     attestedIncome = resultRow.getOrNull(WorkTable.attestedIncome).toString()
     employment = resultRow.getOrNull(WorkTable.employment)
@@ -120,12 +97,7 @@ data class User(
     extensionWorkPhone = resultRow.getOrNull(WorkTable.workPhoneExtension)
     nextSalaryDate = resultRow.getOrNull(WorkTable.nextSalaryDate)?.toLocalDate()
     monthlyExpenses = resultRow.getOrNull(WorkTable.monthlyExpenses).toString()
-//    paymentsAmount = resultRow.getOrNull(WorkTable.paymentsAmount)
-//    salaryFrequency = resultRow.getOrNull(WorkTable.salaryFrequency)
     industry = resultRow.getOrNull(WorkTable.industry)
-//    loanReason = resultRow.getOrNull(WorkTable.loa)
-//    leadId = resultRow.getOrNull(WorkTable.education)
     privateAreaPassword = EnvironmentConfigurationHolder.configuration.privateAreaDefaultUserPassword
-//    partnerId: Int? = null
   }
 }

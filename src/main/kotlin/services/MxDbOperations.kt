@@ -4,6 +4,7 @@ import config.environment.EnvironmentConfiguration
 import config.environment.EnvironmentConfigurationHolder
 import data.User
 import db.DataSourceFactory
+import db.SchemaDb
 import db.SqlLogger
 import db.mx_master_moneyman.decrypt
 import db.mx_master_moneyman.entities.UserAccount
@@ -14,10 +15,10 @@ import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 
 class MxDbOperations(private val envConfig: EnvironmentConfiguration = EnvironmentConfigurationHolder.configuration) {
-  val db: Database = Database.connect(DataSourceFactory(envConfig).getMysqlDataSource())
+  val db: Database = Database.connect(DataSourceFactory(envConfig).getMysqlDataSource(SchemaDb.MX_MASTER_MONEYMAN))
 
   fun getUserForSuccessfullyAuthorization(): User {
-    val userAccount = transaction {
+    val userAccount = transaction(db) {
       addLogger(SqlLogger)
       UserAccount.find { UserAccountTable.email.like("%@%") }.first()
     }
@@ -25,7 +26,7 @@ class MxDbOperations(private val envConfig: EnvironmentConfiguration = Environme
   }
 
   fun getUserById(id: Long): User? {
-    return transaction {
+    return transaction(db) {
       addLogger(SqlLogger)
       BorrowerTable.innerJoin(PersonalDataTable)
         .innerJoin(UserAccountTable)
