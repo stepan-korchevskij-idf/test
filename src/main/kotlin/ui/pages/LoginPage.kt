@@ -17,7 +17,7 @@ class LoginPage() : BasePage() {
 
   fun login(user: User) {
     user.apply {
-      typeLogin(login!!)
+      typeLogin(email!!)
       typePassword(privateAreaPassword!!)
     }
     clickLoginButton()
